@@ -211,7 +211,7 @@ line-height: 1.4;
 
 <section class='container'>
           <hgroup>
-            <h1>Welcome to your Perl application on OpenShift</h1>
+            <h1>Welcome to your Perl application asg1 on OpenShift</h1>
           </hgroup>
 
 
