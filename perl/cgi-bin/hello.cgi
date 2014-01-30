@@ -13,3 +13,5 @@ print <<'HELLO_WORLD';
 </html>
 HELLO_WORLD
 
+1;
+
