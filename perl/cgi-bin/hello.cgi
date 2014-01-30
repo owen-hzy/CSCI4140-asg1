@@ -1,6 +1,6 @@
 use CGI;
 
-print "Content-type:text\html\r\n\r\n"
+print "Content-type:text\html\r\n\r\n";
 print <<'HELLO_WORLD';
 <html>
 <head>
@@ -13,5 +13,4 @@ print <<'HELLO_WORLD';
 </html>
 HELLO_WORLD
 
-1;
 
