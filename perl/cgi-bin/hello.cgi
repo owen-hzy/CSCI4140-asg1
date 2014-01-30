@@ -14,5 +14,4 @@ Content-type:text/html
 </html>
 HELLO_WORLD
 
-1;
 
