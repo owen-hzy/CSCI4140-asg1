@@ -1,0 +1,13 @@
+<html>
+<body>
+<form enctype="multipart/form-data" action="cgi-bin/upload.cgi" method="POST">
+    Choose an image (.jpg .gif .png):
+    <input type="file" name="pic" accept="image/gif, image/jpeg, image/png" required="true" />
+    <br />
+    Description (50 bytes max)
+    <input type="text" name="desc" maxlength="50" /><br />
+    <input type="submit" value="Upload" />
+</form>
+
+</body>
+</html>
