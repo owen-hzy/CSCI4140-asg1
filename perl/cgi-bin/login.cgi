@@ -17,7 +17,7 @@ print <<"MAIN_BODY";
 <section>
 <fieldset>	
 	<legend>User Login</legend>
-	<form method="post" action="cgi-bin/auth-process.cgi?action=login">
+	<form method="post" action="auth-process.cgi?action=login">
 		<label for="username">Username:</label>
 		<input type="text" name="username" maxlength="19" required="true" id="username" />
 		
@@ -30,7 +30,7 @@ print <<"MAIN_BODY";
 </section>
 
 <section>
-	<a href="cgi-bin/display.cgi?action=view">View Album</a>
+	<a href="display.cgi?action=view">View Album</a>
 </section>
 MAIN_BODY
 
