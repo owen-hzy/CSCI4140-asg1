@@ -61,7 +61,7 @@ sub check_name_type
 	$_ = $filename;
 	my ($name, $ext) = /([a-z0-9-_]+).([a-z0-9-_]+)/;
 	
-	my $result = `/usr/bin/identify \"$filename\"`;
+	my $result = `/usr/bin/identify \"$upload_dir/$filename\"`;
 	my @type = split(/ /, $result);
 
 	if ($type[1] eq "JPEG" || $type[1] eq "PNG" || $type[1] eq "GIF")
@@ -69,7 +69,7 @@ sub check_name_type
 		return 1;
 	}else
 	{
-		`/bin/rm -f \"$filename\"` || die("Can't remove the temporary file $filename");
+		`/bin/rm -f \"$upload_dir/$filename\"` || die("Can't remove the temporary file $filename");
 		print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/upload_form.cgi?e=2");
 		exit 0;
 	}
