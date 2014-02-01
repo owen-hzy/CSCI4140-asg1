@@ -8,11 +8,15 @@ my $q = CGI -> new;
 print $q -> header();
 print $q -> start_html(-title=>"UPLOAD", -meta=>{"http-equiv"=>"content-type", "content"=>"text/html; charset=UTF-8"});
 
-if (defined $q -> url_param("fnv"))
+if ($q -> url_param("e") == 1)
+{
+	print $q -> h3("File too large or missed!");
+}
+elsif ($q -> url_param("e") == 2)
 {
 	print $q -> h3("Filetype is not valid!");
 }
-elsif (defined $q -> url_param("now"))
+elsif ($q -> url_param("e") == 3)
 {
 	print $q -> h3("Please choose another photo!");
 }
