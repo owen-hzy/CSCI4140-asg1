@@ -5,6 +5,7 @@ use CGI;
 use DBI;
 
 use CGI::Carp qw/fatalsToBrowser warningsToBrowser/;
+# use CGI::Session;
 use Digest::SHA qw/sha256_hex/;
 
 # Get database detail
@@ -26,6 +27,11 @@ if ($action eq "LOGIN")
 	login();
 }
 
+if ($action eq "LOGOUT")
+{
+	logout();
+}
+
 
 sub login
 {
@@ -42,18 +48,23 @@ sub login
 		print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/login.cgi?f=");
 	}else 
 	{
-		my @data = $query -> fetchrow_array;
-		my $session = new CGI::Session(undef, undef, {Directory => $ENV{"OPENSHIFT_DATA_DIR"}});
+#		my @data = $query -> fetchrow_array;
+#		my $session = new CGI::Session(undef, undef, {Directory => $ENV{"OPENSHIFT_DATA_DIR"}});
 		
-		$session -> param("auth", \@data);
-		$session -> expire("+10h");
+#		$session -> param("auth", \@data);
+#		$session -> expire("+10h");
 		
-		my $cookie = cookie(-name => "CGISESSID", -value => $session -> id, -expires => '+10h', -path => "/cgi-bin");
-		print $q -> header(-cookie => $cookie);
+#		my $cookie = cookie(-name => "CGISESSID", -value => $session -> id, -expires => '+10h', -path => "/cgi-bin");
+#		print $q -> header(-cookie => $cookie);
 		print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/display.cgi");
 	}
 	
 	$dbh -> disconnect;
+}
+
+sub logout
+{
+	print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/login.cgi?t=");
 }
 
  

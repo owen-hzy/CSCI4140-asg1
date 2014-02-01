@@ -1,13 +1,24 @@
+<!DOCTYPE html>
 <html>
+<head>
+<title>Photo Upload</title>
+<meta http-equiv="content-type", content="text/html; charset=UTF-8" />
+</head>
+
 <body>
+<section>
+
 <form enctype="multipart/form-data" action="cgi-bin/upload.cgi" method="POST">
-    Choose an image (.jpg .gif .png):
-    <input type="file" name="pic" accept="image/gif, image/jpeg, image/png" required="true" />
+    <label for="pic">Choose an image (.jpg .gif .png):</label>
+    <input type="file" id="pic" name="pic" accept="image/gif, image/jpeg, image/png" required="true" />
     <br />
-    Description (50 bytes max)
-    <input type="text" name="desc" maxlength="50" /><br />
+    <label for="desc">Description (50 bytes max)</label>
+    <input type="text" id="desc" name="desc" maxlength="50" />
+    <br />
     <input type="submit" value="Upload" />
 </form>
+
+</section>
 
 </body>
 </html>
