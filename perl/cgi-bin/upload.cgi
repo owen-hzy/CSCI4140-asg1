@@ -46,7 +46,7 @@ check_name_type();
 ###
 
 # then do the duplicate checking
-#check_duplicate();
+check_duplicate();
 ###
 
 # update storage		

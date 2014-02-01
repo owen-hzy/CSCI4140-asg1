@@ -21,7 +21,7 @@ elsif ($error == 3)
 {
 	print $q -> h3("Please choose another photo!");
 }
-elsif ($error = 0)
+elsif ($error == 0)
 {
 	print $q -> h3("Upload Successfully!");
 }
