@@ -17,7 +17,7 @@ my $db_source = "DBI:mysql:$db_name;host=$db_host";
 my $dbh = DBI -> connect($db_source, $db_username, $db_password) or die $DBI::errstr;
 
 my $q = CGI -> new;
-my $action = $q -> param("action");
+my $action = $q -> url_param("action");
 
 if ($action eq "login")
 {
