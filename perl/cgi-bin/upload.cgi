@@ -42,7 +42,7 @@ close(OUTFILE);
 ###
 print $q -> header();
 print $q -> h3("succeed!");
-print "<img src='./$filename'>";
+print "<img src='$filename'>";
 # first check file name and type 
 #check_name_type();
 ###
