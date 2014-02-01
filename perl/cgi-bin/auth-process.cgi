@@ -51,10 +51,10 @@ sub login
 		$time += 36000;
 		
 		my $query = $dbh -> prepare("INSERT INTO sessions (sessid, expire) VALUES (?, ?)");
-		$query -> execute($sessid, $time) || $query -> errstr;
+		$query -> execute($sessid, $time) || die $query -> errstr;
 		
 		my $cookie = $q -> cookie(-name => "SESSID", -value => $sessid, -expires => "+10h", -path => "/cgi-bin");
-		print $q -> header(-cookie => $cookie, -refresh => "0.1;url=http://asg1-wtoughwhard.rhcloud.com/cgi-bin/display.cgi");
+		print $q -> header(-cookie => $cookie, -refresh => "0.1; url=http://asg1-wtoughwhard.rhcloud.com/cgi-bin/display.cgi");
 	}
 	
 	$dbh -> disconnect;
@@ -62,7 +62,21 @@ sub login
 
 sub logout
 {
-	print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/login.cgi?e=2");
+	#Connect to database
+	my $db_source = "DBI:mysql:$db_name;host=$db_host";
+	my $dbh = DBI -> connect($db_source, $db_username, $db_password) or die $DBI::errstr;
+	###
+	
+	my $sessid = $q -> cookie("SESSID");
+	my $time = gmtime();
+	
+	my $query = $dbh -> prepare("DETELE FROM sessions WHERE sessid = ?");
+	$query -> execute($sessid) || die $query -> errstr;
+	
+	my $cookie = $q -> cookie(-name => "SESSID", -value => $sessid, -expire => $time, -path => "/cgi-bin");
+	print $q -> header(-cookie => $cookie, -refresh => "0.1; url=http://asg1-wtoughwhard.rhcloud.com/cgi-bin/login.cgi?e=2");
+	
+	$dbh -> disconnect;
 }
 
  
