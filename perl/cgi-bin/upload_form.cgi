@@ -29,7 +29,7 @@ print <<"MAIN_BODY";
     <input type="file" id="pic" name="pic" accept="image/gif, image/jpeg, image/png" required="true" />
     <br />
     <label for="desc">Description (50 bytes max)</label>
-    <input type="text" id="desc" name="desc" maxlength="50" />
+    <input type="text" id="desc" name="description" maxlength="50" />
     <br />
     <input type="submit" value="Upload" />
 </form>

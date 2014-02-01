@@ -27,6 +27,7 @@ my @type = split(/ /, $result);
 if ($type[1] ne "JPEG")
 {
 	print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/upload_form.cgi?e=2");
+	exit 0;
 }
 
 my $db_source = "DBI:mysql:$db_name;host=$db_host";
@@ -85,7 +86,7 @@ sub check_duplicate
 
 sub insert_photo
 {
-	my $thumb_name = $name . "_thumb" . $ext;
+	my $thumb_name = $name . "_thumb." . $ext;
 	my $gen_thumb = "/usr/bin/convert \"../data/$filename\" -resize 30% \"../data/$thumb_name\"";
 	my $cmd = `$gen_thumb`;
 
