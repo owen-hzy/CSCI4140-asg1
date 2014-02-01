@@ -50,10 +50,10 @@ check_duplicate();
 ###
 
 # update storage		
-#insert_photo();
+insert_photo();
 ###
 
-print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/upload_form.cgi?e=0");
+print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/upload_form.cgi?e=5");
 
 
 sub check_name_type

@@ -4,7 +4,7 @@ use strict;
 use CGI;
 
 my $q = CGI -> new;
-my $error = $q -> url_param("e") || 5;
+my $error = $q -> url_param("e") || 0;
 
 print $q -> header();
 print $q -> start_html(-title=>"UPLOAD", -meta=>{"http-equiv"=>"content-type", "content"=>"text/html; charset=UTF-8"});
@@ -21,7 +21,7 @@ elsif ($error == 3)
 {
 	print $q -> h3("Please choose another photo!");
 }
-elsif ($error == 0)
+elsif ($error == 5)
 {
 	print $q -> h3("Upload Successfully!");
 }
