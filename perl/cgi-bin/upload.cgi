@@ -40,9 +40,7 @@ while ( $ret = read($q->upload("pic"), $buffer, 1024))
 
 close(OUTFILE);
 ###
-print $q -> header();
-print $q -> h3("succeed!");
-print "<img src='$filename'>";
+
 # first check file name and type 
 #check_name_type();
 ###
@@ -63,16 +61,16 @@ sub check_name_type
 	$_ = $filename;
 	my ($name, $ext) = /([a-z0-9-_]+).([a-z0-9-_]+)/;
 	
-	my $check_type = "/usr/bin/identify \"$filename\"";
-	my $result = `$check_type`;
+	my $result = `/usr/bin/identify \"$filename\"`;
 	my @type = split(/ /, $result);
-
-	if ((! $name) || $type[1] ne "JPEG" || $type[1] ne "PNG" || $type[1] ne "GIF")
-	{	
-		`/bin/rm -f \"$filename\"` || die("Can't remove the temporary file $filename");
-		print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/upload_form.cgi?e=2");
+	print $q -> header();
+	print "$result", "\t$type[1]";
+	#if ((! $name) || $type[1] ne "JPEG" || $type[1] ne "PNG" || $type[1] ne "GIF")
+	#{	
+	#	`/bin/rm -f \"$filename\"` || die("Can't remove the temporary file $filename");
+	#	print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/upload_form.cgi?e=2");
 		exit 0;
-	}
+	#}
 }
 
 sub check_duplicate
