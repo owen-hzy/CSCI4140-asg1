@@ -12,13 +12,15 @@ sub session_check
 	my $db_name =       $ENV{'OPENSHIFT_APP_NAME'};
 	
 	
-	my $sessid = $q -> cookie("SESSID");
-	if (undef $sessid)
+	# my $sessid = $q -> cookie("SESSID");
+	if (undef $q -> cookie("SESSID"))
 	{
 		print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/login.cgi?e=3");
 		exit;
 	}else
 	{
+		$sessid = $q -> cookie("SESSID");
+		
 		# Connect the database
 		my $db_source = "DBI:mysql:$db_name;host=$db_host";
 		my $dbh = DBI -> connect($db_source, $db_username, $db_password) || die $DBI::errstr;

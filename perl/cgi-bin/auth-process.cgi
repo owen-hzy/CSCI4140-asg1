@@ -43,6 +43,8 @@ sub login
 	if ($query -> rows == 0)
 	{
 		print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/login.cgi?e=1");
+		$dbh -> disconnect;
+		exit;
 	}else 
 	{
 		my $range = 100000000000;
@@ -55,9 +57,11 @@ sub login
 		
 		my $cookie = $q -> cookie(-name => "SESSID", -value => $sessid, -expires => "+10h", -path => "/cgi-bin");
 		print $q -> header(-cookie => $cookie, -refresh => "0.1; url=http://asg1-wtoughwhard.rhcloud.com/cgi-bin/display.cgi");
+		
+		$dbh -> disconnect;
 	}
 	
-	$dbh -> disconnect;
+	
 }
 
 sub logout
