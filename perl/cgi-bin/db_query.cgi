@@ -4,13 +4,14 @@ use DBI;
 use CGI;
 use strict;
 use CGI::Carp qw/fatalsToBrowser warningsToBrowser/;
-
+use Digest::SHA qw/sha256_hex/;
 # Get database detail
 my $db_host =       $ENV{'OPENSHIFT_MYSQL_DB_HOST'};
 my $db_username =   $ENV{'OPENSHIFT_MYSQL_DB_USERNAME'};
 my $db_password =   $ENV{'OPENSHIFT_MYSQL_DB_PASSWORD'};
 my $db_name =       $ENV{'OPENSHIFT_APP_NAME'};             # Default database name is same as application name
-
+my $hashed_password = sha256_hex("test");
+my $name = "hzy";
 my $q = CGI -> new;
 
 print $q -> header();
@@ -30,15 +31,15 @@ my $db_handle =
 print 'Connected! <br />';
 
 # Query detail
-my $query_str = 'SELECT * FROM users';
+my $query_str = 'INSERT INTO users VALUES (?, ?)';
 
 my $query = $db_handle -> prepare($query_str);
 
-$query -> execute() or die $query -> errstr;
+$query -> execute($name, $hashed_password) or die $query -> errstr;
 
-while (my @data = $query -> fetchrow_array) {
-    print $data[0].', '.$data[1].'<br />';
-}
+#while (my @data = $query -> fetchrow_array) {
+ #   print $data[0].', '.$data[1].'<br />';
+#}
 
 # Disconnect after your job
 
