@@ -5,7 +5,6 @@ use CGI;
 use DBI;
 
 use CGI::Carp qw/fatalsToBrowser warningsToBrowser/;
-use CGI::Session;
 use Digest::SHA qw/sha256_hex/;
 
 # Get database detail
