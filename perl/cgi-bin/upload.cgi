@@ -20,19 +20,6 @@ if(!$filename) {
 	exit 0;
 }
 
-my $check_type = "/usr/bin/identify $filename";
-my $result = `$check_type`;
-my @type = split(/ /, $result);
-
-if ($type[1] ne "JPEG")
-{
-	#print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/upload_form.cgi?e=2");
-	print $q -> header();
-	print $q -> h1($check_type);
-	print $q -> h2($type[1]);
-	exit 0;
-}
-
 my $db_source = "DBI:mysql:$db_name;host=$db_host";
 my $dbh = DBI -> connect($db_source, $db_username, $db_password) || die $DBI::errstr;
 
@@ -60,7 +47,19 @@ if ($ifdup == 1)
 	}
 
 	close(OUTFILE);
+	
+	my $check_type = "/usr/bin/identify \"../data/$filename\"";
+	my $result = `$check_type`;
+	my @type = split(/ /, $result);
 
+	if ($type[1] ne "JPEG")
+	{	
+		my $rm = "/bin/rm -f \"../data/$filename\"";
+		my $cmd = `$rm`;
+		print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/upload_form.cgi?e=2");
+		exit 0;
+	}
+	
 	insert_photo();
 
 	print $q -> header();
