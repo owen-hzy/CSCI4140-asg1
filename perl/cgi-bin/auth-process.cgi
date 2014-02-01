@@ -54,8 +54,7 @@ sub login
 		$query -> execute($sessid, $time) || $query -> errstr;
 		
 		my $cookie = $q -> cookie(-name => "SESSID", -value => $sessid, -expires => "+10h", -path => "/cgi-bin");
-		print $q -> header(-cookie => $cookie);
-		print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/display.cgi");
+		print $q -> header(-cookie => $cookie, -redirect => "http://asg1-wtoughwhard.rhcloud.com/cgi-bin/display.cgi");
 	}
 	
 	$dbh -> disconnect;
