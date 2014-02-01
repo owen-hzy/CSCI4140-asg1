@@ -24,7 +24,7 @@ if(!$filename) {
 ###
 
 # put the file into current folder temporarily
-open(OUTFILE, "> $upload_dir/tmp/$filename") || die ("Can't open $filename for writing - $!");
+open(OUTFILE, "> $upload_dir/$filename") || die ("Can't open $filename for writing - $!");
 
 my $ret = 0;
 my $buffer ="";
@@ -94,9 +94,7 @@ sub check_duplicate
 }
 
 sub insert_photo
-{
-	`/bin/mv \"$upload_dir/tmp/$filename\" \"$upload_dir/$filename\"` || die ("Can't move file $filename");
-	
+{	
 	$_ = $filename;
 	my ($name, $ext) = /([a-z0-9-_]+).([a-z0-9-_]+)/;
 	
