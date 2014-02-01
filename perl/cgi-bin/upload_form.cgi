@@ -4,7 +4,7 @@ use strict;
 use CGI;
 
 my $q = CGI -> new;
-my $error = $q -> url_param("e");
+my $error = $q -> param("e");
 
 print $q -> header();
 print $q -> start_html(-title=>"UPLOAD", -meta=>{"http-equiv"=>"content-type", "content"=>"text/html; charset=UTF-8"});
