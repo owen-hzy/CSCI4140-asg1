@@ -1,7 +1,7 @@
 #! /usr/bin/perl -w
 
 use strict;
-use CGI;
+use CGI qw/:standard -nph/;
 
 do "./include.cgi";
 

@@ -1,6 +1,6 @@
 #! /usr/bin/perl -w
 
-use CGI;
+use CGI qw/:standard -nph/;
 use DBI;
 
 sub session_check
@@ -12,8 +12,8 @@ sub session_check
 	my $db_name =       $ENV{'OPENSHIFT_APP_NAME'};
 	
 	
-	my $sessid = $q -> cookie("SESSID");
-	if (!defined $sessid)
+	my $sessid = $q -> param("SESSID");
+	if (!$sessid)
 	{
 		print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/login.cgi?e=3");
 		exit;
