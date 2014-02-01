@@ -2,7 +2,7 @@
 
 use CGI;
 use strict;
-use CGI::Carp qw ( warningsToBrowser fatalsToBrowser );
+use CGI::Carp qw/warningsToBrowser fatalsToBrowser/;
 
 my $q = new CGI;
 
@@ -11,7 +11,7 @@ my $upload_dir = $ENV{"OPENSHIFT_DATA_DIR"};
 my $filename = $q->param("pic");
 my $description = $q->param("description");
 
-if(!$filename) {
+if(undef $filename) {
 	print $q->header();
 	
 	print <<"UPLOAD_FAIL";
