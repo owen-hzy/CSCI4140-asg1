@@ -42,6 +42,7 @@ sub login
 		print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/login.cgi?f=");
 	}else 
 	{
+		print $q -> header();
 		print "Succeeded!";
 	}
 	
