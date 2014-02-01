@@ -9,7 +9,7 @@ my $error = $q -> url_param("e") || 0;
 print $q -> header();
 print $q -> start_html(-title=>"UPLOAD", -meta=>{"http-equiv"=>"content-type", "content"=>"text/html; charset=UTF-8"});
 
-if ($error eq "1")
+if ($error == 1)
 {
 	print $q -> h3("File too large or missed!");
 }
