@@ -70,7 +70,7 @@ sub logout
 	my $sessid = $q -> cookie("SESSID");
 	my $time = gmtime();
 	
-	my $query = $dbh -> prepare("DETELE FROM sessions WHERE sessid = ?");
+	my $query = $dbh -> prepare("DELETE FROM sessions WHERE sessid = ?");
 	$query -> execute($sessid) || die $query -> errstr;
 	
 	my $cookie = $q -> cookie(-name => "SESSID", -value => $sessid, -expire => $time, -path => "/cgi-bin");
