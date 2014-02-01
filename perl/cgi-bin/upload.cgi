@@ -26,7 +26,10 @@ my @type = split(/ /, $result);
 
 if ($type[1] ne "JPEG")
 {
-	print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/upload_form.cgi?e=2");
+	#print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/upload_form.cgi?e=2");
+	print $q -> header();
+	print $q -> h1($type[1]);
+	exit 0;
 }
 
 my $db_source = "DBI:mysql:$db_name;host=$db_host";
