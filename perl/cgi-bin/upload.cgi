@@ -20,7 +20,7 @@ if(!$filename) {
 	exit 0;
 }
 
-my $check_type = "/usr/bin/identify \"$filename\"";
+my $check_type = "/usr/bin/identify $filename";
 my $result = `$check_type`;
 my @type = split(/ /, $result);
 
@@ -29,6 +29,7 @@ if ($type[1] ne "JPEG")
 	#print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/upload_form.cgi?e=2");
 	print $q -> header();
 	print $q -> h1($check_type);
+	print $q -> h2($type[1]);
 	exit 0;
 }
 
