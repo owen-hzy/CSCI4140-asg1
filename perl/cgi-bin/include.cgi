@@ -1,6 +1,6 @@
 #! /usr/bin/perl -w
 
-use CGI qw/:standard -nph/;
+use CGI;
 use DBI;
 
 sub session_check
@@ -11,7 +11,7 @@ sub session_check
 	my $db_password =   $ENV{'OPENSHIFT_MYSQL_DB_PASSWORD'};
 	my $db_name =       $ENV{'OPENSHIFT_APP_NAME'};
 	
-	
+	my $q = CGI -> new;
 	my $sessid = $q -> cookie("SESSID");
 	if (!$sessid)
 	{
@@ -26,7 +26,7 @@ sub session_check
 		
 		my $query = $dbh -> prepare("SELECT * from sessions WHERE sessid = ?");
 		$query -> execute($sessid) || die $query -> errstr;
-		@data = $query -> fetchrow_array; 
+		my @data = $query -> fetchrow_array; 
 		
 		if ($query -> rows == 0)
 		{
