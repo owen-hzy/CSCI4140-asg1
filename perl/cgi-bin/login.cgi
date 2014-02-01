@@ -20,7 +20,7 @@ print <<"MAIN_BODY";
 	<form method="post" action="auth-process.cgi?action=login">
 		<label for="username">Username:</label>
 		<input type="text" name="username" maxlength="19" required="true" id="username" />
-		
+		<br />
 		<label for="password">Password:</label>
 		<input type="password" name="password" required="true" maxlength="30" id="password" />
 		
