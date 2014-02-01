@@ -11,7 +11,7 @@ my $upload_dir = $ENV{"OPENSHIFT_DATA_DIR"};
 my $filename = $q->param("pic");
 my $description = $q->param("description");
 
-if(undef $filename) {
+if(!$filename) {
 	print $q->header();
 	
 	print <<"UPLOAD_FAIL";

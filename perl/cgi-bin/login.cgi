@@ -12,8 +12,7 @@ if (defined $q -> url_param("f"))
 {
 	print $q -> h3("Login Failed!");
 }
-
-if (defined $q -> url_param("t"))
+elsif (defined $q -> url_param("t"))
 {
 	print $q -> h3("Thanks for visiting!");
 }

@@ -11,7 +11,7 @@ print <<"MAIN_BODY";
 <section>
 <ul>
 <li><a href="view.cgi">View Album</a></li>
-<li><a href="../upload_form.html">Upload Photos</a></li>
+<li><a href="upload_form.cgi">Upload Photos</a></li>
 <li><a href="auth-process.cgi?action=logout">Logout</a></li>
 </ul>
 </section>
