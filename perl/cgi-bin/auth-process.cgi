@@ -18,8 +18,9 @@ my $dbh = DBI -> connect($db_source, $db_username, $db_password) or die $DBI::er
 
 my $q = CGI -> new;
 my $action = $q -> url_param("action");
+$action =~ tr/a-z/A-Z/;
 
-if ($action eq "login")
+if ($action eq "LOGIN")
 {
 	login();
 }
@@ -36,7 +37,7 @@ sub login
 	
 	if ($query -> rows == 0)
 	{
-		print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/login.cgi?f=1");
+		print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/login.cgi?f=");
 		$dbh -> disconnect;
 		exit;
 	}
