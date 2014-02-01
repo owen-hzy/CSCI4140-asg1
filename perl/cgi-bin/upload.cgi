@@ -23,8 +23,9 @@ if(!$filename) {
 }
 ###
 
-# put the file into current folder temporarily
-open(OUTFILE, "> $upload_dir/$filename") || die ("Can't open $filename for writing - $!");
+# put the file into teporary folder
+`/bin/mkdir \"$upload_dir/tmp\"`;
+open(OUTFILE, "> $upload_dir/tmp/$filename") || die ("Can't open $filename for writing - $!");
 
 my $ret = 0;
 my $buffer ="";
@@ -61,7 +62,7 @@ sub check_name_type
 	$_ = $filename;
 	my ($name, $ext) = /([a-z0-9-_]+).([a-z0-9-_]+)/;
 	
-	my $result = `/usr/bin/identify \"$upload_dir/$filename\"`;
+	my $result = `/usr/bin/identify \"$upload_dir/tmp/$filename\"`;
 	my @type = split(/ /, $result);
 
 	if ($name && ($type[1] eq "JPEG" || $type[1] eq "PNG" || $type[1] eq "GIF"))
@@ -69,7 +70,7 @@ sub check_name_type
 		return 1;
 	}else
 	{
-		`/bin/rm -f \"$upload_dir/$filename\"`;
+		`/bin/rm -rf \"$upload_dir/tmp"`;
 		print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/upload_form.cgi?e=2");
 		exit 0;
 	}
@@ -95,6 +96,9 @@ sub check_duplicate
 
 sub insert_photo
 {	
+	`/bin/mv \"$upload_dir/tmp/$filename\" \"$upload_dir\$filename\"`;
+	`/bin/rm -rf \"$upload_dir/tmp\"`;
+	
 	$_ = $filename;
 	my ($name, $ext) = /([a-z0-9-_]+).([a-z0-9-_]+)/;
 	

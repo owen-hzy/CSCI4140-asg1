@@ -5,7 +5,6 @@ use CGI;
 use DBI;
 
 use CGI::Carp qw/fatalsToBrowser warningsToBrowser/;
-# use CGI::Session;
 use Digest::SHA qw/sha256_hex/;
 
 # Get database detail
@@ -14,10 +13,6 @@ my $db_username = $ENV{"OPENSHIFT_MYSQL_DB_USERNAME"};
 my $db_password = $ENV{"OPENSHIFT_MYSQL_DB_PASSWORD"};
 my $db_name = $ENV{"OPENSHIFT_APP_NAME"};
 
-#Connect to database
-my $db_source = "DBI:mysql:$db_name;host=$db_host";
-my $dbh = DBI -> connect($db_source, $db_username, $db_password) or die $DBI::errstr;
-
 my $q = CGI -> new;
 my $action = $q -> url_param("action");
 $action =~ tr/a-z/A-Z/;
@@ -25,9 +20,7 @@ $action =~ tr/a-z/A-Z/;
 if ($action eq "LOGIN")
 {
 	login();
-}
-
-if ($action eq "LOGOUT")
+}elsif ($action eq "LOGOUT")
 {
 	logout();
 }
@@ -35,6 +28,10 @@ if ($action eq "LOGOUT")
 
 sub login
 {
+	#Connect to database
+	my $db_source = "DBI:mysql:$db_name;host=$db_host";
+	my $dbh = DBI -> connect($db_source, $db_username, $db_password) or die $DBI::errstr;
+	###
 	
 	my $username = $q -> param("username");
 	my $password = $q -> param("password");
@@ -48,14 +45,16 @@ sub login
 		print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/login.cgi?e=1");
 	}else 
 	{
-#		my @data = $query -> fetchrow_array;
-#		my $session = new CGI::Session(undef, undef, {Directory => $ENV{"OPENSHIFT_DATA_DIR"}});
+		my $range = 100000000000;
+		my $sessid = int(rand($range));
+		my $time = `date +%s`;
+		$time += 36000;
 		
-#		$session -> param("auth", \@data);
-#		$session -> expire("+10h");
+		my $query = $dbh -> prepare("INSERT INTO sessions (sessid, expire) VALUES (?, ?)");
+		$query -> execute($sessid, $time) || $query -> errstr;
 		
-#		my $cookie = cookie(-name => "CGISESSID", -value => $session -> id, -expires => '+10h', -path => "/cgi-bin");
-#		print $q -> header(-cookie => $cookie);
+		my $cookie = cookie(-name => "SESSID", -value => $sessid, -expires => '+10h', -path => "/cgi-bin");
+		print $q -> header(-cookie => $cookie);
 		print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/display.cgi");
 	}
 	
