@@ -31,7 +31,6 @@ my $totalBytes = 0;
 if ($ifdup == 0)
 {
 	$q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/dup_handle.cgi");
-	$dbh -> disconnect;
 	exit 0;
 }
 elsif ($ifdup == 1)
