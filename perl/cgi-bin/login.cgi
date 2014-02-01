@@ -44,7 +44,7 @@ print <<"MAIN_BODY";
 
 <br />
 <section>
-	<a href="display.cgi?action=view">View Album</a>
+	<a href="view.cgi">View Album</a>
 </section>
 MAIN_BODY
 

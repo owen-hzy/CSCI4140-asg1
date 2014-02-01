@@ -1,14 +1,13 @@
 #! /usr/bin/perl -w
 
-use strict;
 use CGI;
 
-# do "./include.cgi";
+do "./include.cgi";
 
 my $q = CGI -> new;
-# my @data = ();
-# Check the session information
-# session_check();
+my @data = ();
+#Check the session information
+session_check();
 ###
 
 print $q -> header();

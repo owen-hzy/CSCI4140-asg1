@@ -12,7 +12,7 @@ sub session_check
 	my $db_name =       $ENV{'OPENSHIFT_APP_NAME'};
 	
 	
-	my $sessid = $q -> param("SESSID");
+	my $sessid = $q -> cookie("SESSID");
 	if (!$sessid)
 	{
 		print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/login.cgi?e=3");
