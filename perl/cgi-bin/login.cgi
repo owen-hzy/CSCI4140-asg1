@@ -4,15 +4,16 @@ use strict;
 use CGI;
 
 my $q = CGI -> new;
+my $e = $q -> url_param("e") || 0;
 
 print $q -> header();
 print $q -> start_html(-title=>"LOGIN", -meta=>{"http-equiv"=>"content-type", "content"=>"text/html; charset=UTF-8"});
 
-if (defined $q -> url_param("f"))
+if ($e == 1)
 {
 	print $q -> h3("Login Failed!");
 }
-elsif (defined $q -> url_param("t"))
+elsif ($e == 2)
 {
 	print $q -> h3("Thanks for visiting!");
 }

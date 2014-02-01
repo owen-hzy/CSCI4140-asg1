@@ -45,7 +45,7 @@ sub login
 	
 	if ($query -> rows == 0)
 	{
-		print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/login.cgi?f=");
+		print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/login.cgi?e=1");
 	}else 
 	{
 #		my @data = $query -> fetchrow_array;
@@ -64,7 +64,7 @@ sub login
 
 sub logout
 {
-	print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/login.cgi?t=");
+	print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/login.cgi?e=2");
 }
 
  

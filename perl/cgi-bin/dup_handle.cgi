@@ -5,4 +5,8 @@ use CGI;
 
 my $q = CGI -> new;
 print $q -> header();
-print $q -> h3("this is duplicate handling panel");
+print $q -> start_html(-title => "Duplicate-Handling", -meta => {"http-equiv"=>"content-type", "content"=>"text/html; charset=UTF-8"});
+
+print $q -> h1("test");
+
+print $q -> end_html;
