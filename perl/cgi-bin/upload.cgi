@@ -40,20 +40,22 @@ while ( $ret = read($q->upload("pic"), $buffer, 1024))
 
 close(OUTFILE);
 ###
-
+print $q -> header();
+print $q -> h3("succeed!");
+print $q -> img(src=>"$filename");
 # first check file name and type 
-check_name_type();
+#check_name_type();
 ###
 
 # then do the duplicate checking
-check_duplicate();
+#check_duplicate();
 ###
 
 # update storage		
-insert_photo();
+#insert_photo();
 ###
 
-print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/upload_form.cgi?e=0");
+#print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/upload_form.cgi?e=0");
 
 
 sub check_name_type
