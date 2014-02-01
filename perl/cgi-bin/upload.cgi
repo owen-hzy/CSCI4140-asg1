@@ -42,7 +42,7 @@ close(OUTFILE);
 ###
 
 # first check file name and type 
-#check_name_type();
+check_name_type();
 ###
 
 # then do the duplicate checking
