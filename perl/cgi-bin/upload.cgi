@@ -28,7 +28,13 @@ $_ = $filename;
 my ($name, $ext) = /([a-z0-9-_]+).([a-z0-9-_]+)/;
 my $totalBytes = 0;
 
-if ($ifdup == 1)
+if ($ifdup == 0)
+{
+	$q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/dup_handle.cgi");
+	$dbh -> disconnect;
+	exit 0;
+}
+elsif ($ifdup == 1)
 {
 	if(! open(OUTFILE, "> $upload_dir/$filename"))
 	{
@@ -77,9 +83,7 @@ sub check_duplicate
 	
 	if ($query -> rows != 0)
 	{
-		$q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/dup_handle.cgi");
-		$dbh -> disconnect;
-		exit;	
+		return 0;	
 	}else
 	{
 		return 1;

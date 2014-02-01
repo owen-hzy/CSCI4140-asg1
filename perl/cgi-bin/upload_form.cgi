@@ -4,19 +4,20 @@ use strict;
 use CGI;
 
 my $q = CGI -> new;
+my $error = $q -> url_param("e");
 
 print $q -> header();
 print $q -> start_html(-title=>"UPLOAD", -meta=>{"http-equiv"=>"content-type", "content"=>"text/html; charset=UTF-8"});
 
-if ($q -> url_param("e") == 1)
+if ($error == 1)
 {
 	print $q -> h3("File too large or missed!");
 }
-elsif ($q -> url_param("e") == 2)
+elsif ($error == 2)
 {
 	print $q -> h3("Filetype is not valid!");
 }
-elsif ($q -> url_param("e") == 3)
+elsif ($error == 3)
 {
 	print $q -> h3("Please choose another photo!");
 }
