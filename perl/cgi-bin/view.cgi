@@ -5,4 +5,4 @@ use CGI;
 
 my $q = CGI -> new;
 print $q -> header();
-print h1("This is ablum view panel");
+print $q -> h1("This is ablum view panel");
