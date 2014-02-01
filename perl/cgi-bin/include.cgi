@@ -2,6 +2,7 @@
 
 use CGI;
 use DBI;
+use strict;
 
 sub session_check
 {
@@ -33,7 +34,7 @@ sub session_check
 			print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/login.cgi?e=3");
 			$dbh -> disconnect;
 			exit;
-		}elsif ($data[1] < gmtime())
+		}elsif ($data[1] < `date +%s`)
 		{
 			my $query = $dbh -> prepare("DELETE FROM sessions WHERE sessid = ?");
 			$query -> execute($sessid) || die $query -> errstr;

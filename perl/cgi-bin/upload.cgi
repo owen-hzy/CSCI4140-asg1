@@ -5,7 +5,12 @@ use DBI;
 use strict;
 use CGI::Carp qw/warningsToBrowser fatalsToBrowser/;
 
+do "./include.cgi";
+
 my $q = new CGI;
+# Check the session information
+session_check();
+###
 
 my $db_host =       $ENV{'OPENSHIFT_MYSQL_DB_HOST'};
 my $db_username =   $ENV{'OPENSHIFT_MYSQL_DB_USERNAME'};

@@ -60,8 +60,7 @@ sub login
 		
 		$dbh -> disconnect;
 	}
-	
-	
+		
 }
 
 sub logout
