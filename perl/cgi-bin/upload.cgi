@@ -53,7 +53,7 @@ check_name_type();
 #insert_photo();
 ###
 
-#print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/upload_form.cgi?e=0");
+print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/upload_form.cgi?e=0");
 
 
 sub check_name_type
@@ -66,7 +66,7 @@ sub check_name_type
 
 	if ($type[1] eq "JPEG" || $type[1] eq "PNG" || $type[1] eq "GIF")
 	{	
-		return;
+		return 1;
 	}else
 	{
 		`/bin/rm -f \"$filename\"` || die("Can't remove the temporary file $filename");
