@@ -64,12 +64,12 @@ sub check_name_type
 	my $result = `/usr/bin/identify \"$upload_dir/$filename\"`;
 	my @type = split(/ /, $result);
 
-	if ($type[1] eq "JPEG" || $type[1] eq "PNG" || $type[1] eq "GIF")
+	if ($name && ($type[1] eq "JPEG" || $type[1] eq "PNG" || $type[1] eq "GIF"))
 	{	
 		return 1;
 	}else
 	{
-		`/bin/rm -f \"$upload_dir/$filename\"` || die("Can't remove the temporary file $filename");
+		`/bin/rm -f \"$upload_dir/$filename\"`;
 		print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/upload_form.cgi?e=2");
 		exit 0;
 	}
@@ -99,8 +99,7 @@ sub insert_photo
 	my ($name, $ext) = /([a-z0-9-_]+).([a-z0-9-_]+)/;
 	
 	my $thumb_name = $name . "_thumb." . $ext;
-	`/usr/bin/convert \"$upload_dir/$filename\" -resize 30% \"$thumb_name\"` || die ("Can't generate thumbnail");
-
+	`/usr/bin/convert \"$upload_dir/$filename\" -resize 30% \"$upload_dir/$thumb_name\"`;
 	
 	my $time = `/bin/date +%s`;
 	
