@@ -63,14 +63,16 @@ sub check_name_type
 	
 	my $result = `/usr/bin/identify \"$filename\"`;
 	my @type = split(/ /, $result);
-	print $q -> header();
-	print "$result", "\t$type[1]";
-	#if ((! $name) || $type[1] ne "JPEG" || $type[1] ne "PNG" || $type[1] ne "GIF")
-	#{	
-	#	`/bin/rm -f \"$filename\"` || die("Can't remove the temporary file $filename");
-	#	print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/upload_form.cgi?e=2");
+
+	if ($type[1] eq "JPEG" || $type[1] eq "PNG" || $type[1] eq "GIF")
+	{	
+		return;
+	}else
+	{
+		`/bin/rm -f \"$filename\"` || die("Can't remove the temporary file $filename");
+		print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/upload_form.cgi?e=2");
 		exit 0;
-	#}
+	}
 }
 
 sub check_duplicate
