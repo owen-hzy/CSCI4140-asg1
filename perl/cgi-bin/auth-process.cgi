@@ -53,7 +53,7 @@ sub login
 		my $query = $dbh -> prepare("INSERT INTO sessions (sessid, expire) VALUES (?, ?)");
 		$query -> execute($sessid, $time) || $query -> errstr;
 		
-		my $cookie = cookie(-name => "SESSID", -value => $sessid, -expires => '+10h', -path => "/cgi-bin");
+		my $cookie = $q -> cookie(-name => "SESSID", -value => $sessid, -expires => "+10h", -path => "/cgi-bin");
 		print $q -> header(-cookie => $cookie);
 		print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/display.cgi");
 	}
