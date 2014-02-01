@@ -3,7 +3,14 @@
 use strict;
 use CGI;
 
+do "./include.cgi";
+
 my $q = CGI -> new;
+my @data = ();
+# Check the session information
+session_check();
+###
+
 print $q -> header();
 print $q -> start_html(-title => "DISPLAY", -meta => {"http-equiv"=>"content-type", "content"=>"text/html; charset=UTF-8"});
 

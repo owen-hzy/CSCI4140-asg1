@@ -17,6 +17,10 @@ elsif ($e == 2)
 {
 	print $q -> h3("Thanks for visiting!");
 }
+elsif ($e == 3)
+{
+	print $q -> h3("Please Login!");
+}
 
 print <<"MAIN_BODY";
 <section>

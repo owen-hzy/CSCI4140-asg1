@@ -6,6 +6,7 @@ use strict;
 use CGI::Carp qw/warningsToBrowser fatalsToBrowser/;
 
 my $q = new CGI;
+
 my $db_host =       $ENV{'OPENSHIFT_MYSQL_DB_HOST'};
 my $db_username =   $ENV{'OPENSHIFT_MYSQL_DB_USERNAME'};
 my $db_password =   $ENV{'OPENSHIFT_MYSQL_DB_PASSWORD'};

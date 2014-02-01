@@ -3,7 +3,14 @@
 use strict;
 use CGI;
 
+do "./include.cgi";
+
 my $q = CGI -> new;
+my @data = ();
+# Check the session information
+session_check();
+###
+
 my $error = $q -> url_param("e") || 0;
 
 print $q -> header();
