@@ -99,7 +99,7 @@ sub insert_photo
 	my ($name, $ext) = /([a-z0-9-_]+).([a-z0-9-_]+)/;
 	
 	my $thumb_name = $name . "_thumb." . $ext;
-	`/usr/bin/convert \"$upload_dir/$filename\" -resize 30% \"$upload_dir/$thumb_name\"`;
+	`/usr/bin/convert \"$upload_dir/$filename\" -resize 30% \"$thumb_name\"`;
 	
 	my $time = `/bin/date +%s`;
 	
