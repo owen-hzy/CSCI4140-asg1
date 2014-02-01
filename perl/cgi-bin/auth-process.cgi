@@ -73,7 +73,7 @@ sub logout
 	my $query = $dbh -> prepare("DELETE FROM sessions WHERE sessid = ?");
 	$query -> execute($sessid) || die $query -> errstr;
 	
-	my $cookie = $q -> cookie(-name => "SESSID", -value => $sessid, -expire => $time, -path => "/cgi-bin");
+	my $cookie = $q -> cookie(-name => "SESSID", -value => $sessid, -expires => $time, -path => "/cgi-bin");
 	print $q -> header(-cookie => $cookie, -refresh => "0.1; url=http://asg1-wtoughwhard.rhcloud.com/cgi-bin/login.cgi?e=2");
 	
 	$dbh -> disconnect;
