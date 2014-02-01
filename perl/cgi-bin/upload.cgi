@@ -24,7 +24,7 @@ if(!$filename) {
 ###
 
 # put the file into current folder temporarily
-open(OUTFILE, "> $filename") || die ("Can't open $filename for writing - $!");
+open(OUTFILE, "> ./$filename") || die ("Can't open $filename for writing - $!");
 
 my $ret = 0;
 my $buffer ="";
