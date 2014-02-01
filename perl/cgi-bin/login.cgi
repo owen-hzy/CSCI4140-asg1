@@ -8,7 +8,7 @@ my $q = CGI -> new;
 print $q -> header();
 print $q -> start_html(-title=>"LOGIN", -meta=>{"http-equiv"=>"content-type", "content"=>"text/html; charset=UTF-8"});
 
-if (defined $q -> param("f"))
+if (defined $q -> url_param("f"))
 {
 	print $q -> h3("Login Failed!");
 }

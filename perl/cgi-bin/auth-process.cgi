@@ -5,6 +5,7 @@ use CGI;
 use DBI;
 
 use CGI::Carp qw/fatalsToBrowser warningsToBrowser/;
+use Digest::SHA qw/sha256_hex/;
 
 # Get database detail
 my $db_host = $ENV{"OPENSHIFT_MYSQL_DB_HOST"};
@@ -31,15 +32,17 @@ sub login
 	
 	my $username = $q -> param("username");
 	my $password = $q -> param("password");
+	my $hashed_password = sha256_hex($password);
 	
-	my $query = $dbh -> prepare("SELECT * FROM users WHERE username = ?");
-	$query -> execute($username) or die $query -> errstr;
+	my $query = $dbh -> prepare("SELECT * FROM users WHERE username = ? AND password = ?");
+	$query -> execute($username, $hashed_password) or die $query -> errstr;
 	
 	if ($query -> rows == 0)
 	{
 		print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/login.cgi?f=");
-		$dbh -> disconnect;
-		exit;
+	}else 
+	{
+		print "Succeeded!";
 	}
 	
 	$dbh -> disconnect;
