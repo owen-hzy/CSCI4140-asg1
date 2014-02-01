@@ -24,7 +24,7 @@ if(!$filename) {
 ###
 
 # put the file into current folder temporarily
-open(OUTFILE, "> ./$filename") || die ("Can't open $filename for writing - $!");
+open(OUTFILE, "> $upload_dir/tmp/$filename") || die ("Can't open $filename for writing - $!");
 
 my $ret = 0;
 my $buffer ="";
@@ -95,15 +95,14 @@ sub check_duplicate
 
 sub insert_photo
 {
-	`/bin/mv \"$filename\" \"$upload_dir/$filename\"` || die ("Can't move file $filename");
+	`/bin/mv \"$upload_dir/tmp/$filename\" \"$upload_dir/$filename\"` || die ("Can't move file $filename");
 	
 	$_ = $filename;
 	my ($name, $ext) = /([a-z0-9-_]+).([a-z0-9-_]+)/;
 	
 	my $thumb_name = $name . "_thumb." . $ext;
-	`/usr/bin/convert \"$filename\" -resize 30% \"$thumb_name\"` || die ("Can't generate thumbnail");
+	`/usr/bin/convert \"$upload_dir/$filename\" -resize 30% \"$upload_dir/$thumb_name\"` || die ("Can't generate thumbnail");
 
-	`/bin/mv \"$thumb_name\" \"$upload_dir/$thumb_name\"` || die ("Can't move file $thumb_name");
 	
 	my $time = `/bin/date +%s`;
 	
