@@ -105,7 +105,7 @@ sub check_duplicate
 		
 		my $sessid = $q -> cookie("SESSID");
 		
-		$query = $dbh -> prepare("UPDATE sessions SET desc = ? WHERE sessid = ?");
+		$query = $dbh -> prepare("UPDATE sessions SET (desc = ?) WHERE sessid = ?");
 		$query -> execute($description, $sessid) || die $query -> errstr;
 		
 		$query -> finish;
