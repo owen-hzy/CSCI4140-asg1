@@ -31,8 +31,8 @@ print <<"TOPBAR";
 <section>
 <form method="POST" action="view_handle.cgi?action=change&p=$page_nu">
 <label for="row">Dimension:</label>
-<input type="text" name="row" id="row" maxlength="1" min="1" max="9" value="$row"/>x
-<input type="text" name="column" maxlength="1" value="$column" min="1" max="9" />
+<input type="number" name="row" id="row" maxlength="1" min="1" max="9" value="$row"/>x
+<input type="number" name="column" maxlength="1" value="$column" min="1" max="9" />
 TOPBAR
 
 my @sort_ex = ("size", "name", "upload_time");
@@ -129,7 +129,7 @@ print <<"FOOTER";
 <hr />
 <section>
 <form method="POST" action="view_handle.cgi?action=go">
-<label for="page">Page<input type="text" name="page" id="page" maxlength="3" value="$page_nu" min="1" max="$page" /> of $page</label>
+<label for="page">Page<input type="number" name="page" id="page" maxlength="3" value="$page_nu" min="1" max="$page" /> of $page</label>
 <input type="submit" value="Go to page" />
 </form>
 </section>
