@@ -14,7 +14,7 @@ my $db_host =       $ENV{'OPENSHIFT_MYSQL_DB_HOST'};
 	my $description = "hello";
 	my $sessid = 9871271073;
 	
-	my $query = $dbh -> prepare("UPDATE sessions SET desc = ? WHERE sessid = ?");
+	my $query = $dbh -> prepare("UPDATE sessions SET description = ? WHERE sessid = ?");
 		$query -> execute($description, $sessid) || die $query -> errstr;
 		$query -> finish;
 		$dbh -> disconnect;
