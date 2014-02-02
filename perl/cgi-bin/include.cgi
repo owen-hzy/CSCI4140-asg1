@@ -191,3 +191,38 @@ sub update_photo
 	
 	print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/upload_form.cgi?e=5");
 }
+
+sub get_data
+{
+	my $q = CGI -> new;
+	
+	my $sort = $q -> param("sort") || $q -> cookie("sort") || "size";
+	my $order = $q -> param("order") || $q -> cookie("order") || "ASC";
+	
+	# Database Info
+	my $db_host =       $ENV{'OPENSHIFT_MYSQL_DB_HOST'};
+	my $db_username =   $ENV{'OPENSHIFT_MYSQL_DB_USERNAME'};
+	my $db_password =   $ENV{'OPENSHIFT_MYSQL_DB_PASSWORD'};
+	my $db_name =       $ENV{'OPENSHIFT_APP_NAME'};
+	###
+	
+	# Connect the database
+	my $db_source = "DBI:mysql:$db_name;host=$db_host";
+	my $dbh = DBI -> connect($db_source, $db_username, $db_password) || die $DBI::errstr;
+	###
+	
+	my @data = ();
+	my $query = $dbh -> prepare("SELECT name, description FROM photos ORDER BY $sort $order");
+	$query -> execute() || die $query -> errstr;
+	
+	while (my @result = $query -> fetchrow_array)
+	{
+		push(@data, $result[0]);
+		push(@data, $result[1]);
+	}
+	
+	$query -> finish;
+	$dbh -> disconnect;
+	
+	return @data;
+}

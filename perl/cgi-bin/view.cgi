@@ -7,6 +7,8 @@ use DBI;
 do "./include.cgi";
 my $q = CGI -> new;
 my $session = session_check();
+my $row = $q -> cookie("row") || 2;
+my $column = $q -> cookie("column") || 4;
 
 print $q -> header();
 print $q -> start_html(-title=>"UPLOAD", -meta=>{"http-equiv"=>"content-type", "content"=>"text/html; charset=UTF-8"});
@@ -32,8 +34,50 @@ print <<"TOPBAR";
 <hr />
 TOPBAR
 
+my @data = get_data();
+my $count = 0;
+print "<form method='POST' action='view_handle.cgi?action=delete'>";
+print "<table cellpadding='5pt' cellspacing='5pt'>";
 
+for (my $i = 0; $i < $row; $i++)
+{
+	print "<tr>";
+	for (my $j = 0; $j < $column; $j++)
+	{
+		$_ = $data[$count];
+		my ($filename, $ext) = /([a-z0-9-_]+).([a-z0-9-_]+)/;
+	
+		my $thumb_name = $filename . "_thumb." . $ext;
+		my $description = $data[$count + 1];
+		print <<"CONTENT";
+		<td>
+		<a href='../data/$filename'>
+		<img src='../data/$thumb_name' title='$description' /></a>
+CONTENT
+	if ($session == 1){
+		print "<figcation><input type='checkbox' name='$filename' value='selected' disabled />$filename</figcation>";
+	}else
+	{
+		print "<figcation><input type='checkbox' name='$filename' value='selected' />$filename</figcation>";
+	}
+	print "</td>";
+	$count += 2;
+	
+	if ($count > scalar @data)
+	{
+		last;
+	}	
+	}
+	print "</tr>";
+	if ($count > scalar @data)
+	{
+		last;
+	}
+}
 
+print "</table>";
+print "<input type='submit' value='Remove selected' />";
+print "</form>";
 
 
 
