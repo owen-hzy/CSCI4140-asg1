@@ -32,7 +32,7 @@ print 'Connected! <br />';
 # Disconnect immediately ...
 
 my $table = "test";
-my $query = $dbh -> prepare("SELECT * FROM $db_name.tables WHERE name=N'$table' AND type='U'");
+my $query = $dbh -> prepare("SELECT * FROM $db_name WHERE name=N'$table' AND type='U'");
 $query -> execute() || die $query -> errstr;
 my @data = $query -> fetchrow_array;
 
