@@ -59,14 +59,15 @@ print <<"MAIN_BODY";
 </section>
 
 <br />
-<section>
-	<a href="view.cgi">View Album (read_only)</a>
-</section>
 MAIN_BODY
 
 if ($session == 0)
 {
+	print "<a href='view.cgi>View Album</a>";
 	print "<a href='display.cgi'>Go to Display Panel Directly</a>";
+}else
+{
+	print "<a href='view.cgi'>View Album (read_only)</a>";
 }
 
 
