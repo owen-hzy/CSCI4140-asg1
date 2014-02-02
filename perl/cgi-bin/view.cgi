@@ -36,7 +36,10 @@ TOPBAR
 
 my @data = get_data();
 my $count = 0;
-print "<form method='POST' action='view_handle.cgi?action=delete'>";
+if ($session == 1)
+{
+	print "<form method='POST' action='view_handle.cgi?action=delete'>";
+}
 print "<table cellpadding='5pt' cellspacing='5pt'>";
 
 for (my $i = 0; $i < $row; $i++)
@@ -51,33 +54,35 @@ for (my $i = 0; $i < $row; $i++)
 		my $description = $data[$count + 1];
 		print <<"CONTENT";
 		<td>
-		<a href='../data/$filename'>
+		<a href='../data/$data[$count]'>
 		<img src='../data/$thumb_name' title='$description' /></a>
 CONTENT
-	if ($session == 1){
-		print "<figcation><input type='checkbox' name='$filename' value='selected' disabled />$filename</figcation>";
-	}else
-	{
-		print "<figcation><input type='checkbox' name='$filename' value='selected' />$filename</figcation>";
-	}
-	print "</td>";
-	$count += 2;
+		if ($session == 1){
+			print "<figcation>$filename</figcation>";
+		}else
+		{
+			print "<figcation><input type='checkbox' name='$filename' value='selected' />$filename</figcation>";
+		}
+		print "</td>";
+		$count += 2;
 	
-	if ($count > scalar @data)
-	{
-		last;
-	}	
+		if ($count >= scalar @data)
+		{
+			last;
+		}	
 	}
 	print "</tr>";
-	if ($count > scalar @data)
+	if ($count >= scalar @data)
 	{
 		last;
 	}
 }
 
 print "</table>";
-print "<input type='submit' value='Remove selected' />";
-print "</form>";
+if ($session == 1){
+	print "<input type='submit' value='Remove selected' />";
+	print "</form>";
+}
 
 
 
