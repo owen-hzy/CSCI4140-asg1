@@ -135,3 +135,16 @@ print <<"FOOTER";
 </section>
 FOOTER
 
+if ($session != 1)
+{
+	print "<a href='http://asg1-wtoughwhard.rhcloud.com/cgi-bin/display.cgi'>Back to Display</a>";
+}else
+{
+	print "<a href='http://asg1-wtoughwhard.rhcloud.com/cgi-bin/login.cgi'>Back to Login</a>";
+}
+
+print $q -> end_html;
+
+
+
+
