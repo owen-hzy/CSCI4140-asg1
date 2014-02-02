@@ -14,13 +14,8 @@ my $column = $q -> param("column") || $q -> cookie("column") || 4;
 my $sort = $q -> param("sort") || $q -> cookie("sort") || "size";
 my $order = $q -> param("order") || $q -> cookie("order") || "ASC";
 
-my $cookie1 = $q -> cookie(-name => "row", -value => $row, -expires => "+1h", -path => "/cgi-bin");
-my $cookie2 = $q -> cookie(-name => "column", -value => $column, -expires => "+1h", -path => "/cgi-bin");
-my $cookie3 = $q -> cookie(-name => "sort", -value => $sort, -expires => "+1h", -path => "/cgi-bin");
-my $cookie4 = $q -> cookie(-name => "order", -value => $order, -expires => "+1h", -path => "/cgi-bin");
-
-my $cookie = $cookie1 . "-" . $cookie2 . "-" . $cookie3 . "-" . $cookie4;
-print $q -> header(-cookie => $cookie);
+my $mix = $row . "-" . $column . "-" . $sort . "-" . $order;
+my $cookie = $q -> cookie(-name => "mix", -value => $mix, -expires => "+1h", -path => "/cgi-bin");
 
 if ($action == "DELETE")
 {
@@ -69,7 +64,7 @@ if ($action == "DELETE")
 			
 		}
 	}
- 	print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/view.cgi");
+ 	print $q -> header(-cookie => $cookie, refresh => "0.1; url=http://asg1-wtoughwhard.rhcloud.com/cgi-bin/view.cgi");
 }
 
 
