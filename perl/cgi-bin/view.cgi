@@ -11,7 +11,7 @@ my $row = $q -> cookie("row") || 2;
 my $column = $q -> cookie("column") || 4;
 
 print $q -> header();
-print $q -> start_html(-title=>"UPLOAD", -meta=>{"http-equiv"=>"content-type", "content"=>"text/html; charset=UTF-8"});
+print $q -> start_html(-title=>"VIEW", -meta=>{"http-equiv"=>"content-type", "content"=>"text/html; charset=UTF-8"});
 
 print <<"TOPBAR";
 <section>
@@ -58,10 +58,10 @@ for (my $i = 0; $i < $row; $i++)
 		<img src='../data/$thumb_name' title='$description'></a>
 CONTENT
 		if ($session == 1){
-			print "<figcation>$filename</figcation>";
+			print "<br /><figcation>$filename</figcation>";
 		}else
 		{
-			print "<figcation><input type='checkbox' name='$filename' value='selected' />$filename</figcation>";
+			print "<br /><figcation><input type='checkbox' name='$filename' value='selected' />$filename</figcation>";
 		}
 		print "</td>";
 		$count += 2;
