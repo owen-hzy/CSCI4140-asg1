@@ -55,7 +55,7 @@ sub login
 		my $desc = "null";
 		$time += 36000;
 		
-		my $query = $dbh -> prepare("INSERT INTO sessions (sessid, expire) VALUES (?, ?, ?)");
+		my $query = $dbh -> prepare("INSERT INTO sessions (sessid, expire, desc) VALUES (?, ?, ?)");
 		$query -> execute($sessid, $time, $desc) || die $query -> errstr;
 		
 		$query -> finish;
