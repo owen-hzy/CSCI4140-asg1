@@ -12,7 +12,7 @@ my $db_host =       $ENV{'OPENSHIFT_MYSQL_DB_HOST'};
 	my $db_source = "DBI:mysql:$db_name;host=$db_host";
 	my $dbh = DBI -> connect($db_source, $db_username, $db_password) || die $DBI::errstr;
 	my $description = "hello";
-	my $sessid = 9871271073;
+	my $sessid = 12761333475;
 	
 	my $query = $dbh -> prepare("UPDATE sessions SET description = ? WHERE sessid = ?");
 		$query -> execute($description, $sessid) || die $query -> errstr;
