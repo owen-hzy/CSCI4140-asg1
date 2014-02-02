@@ -55,7 +55,7 @@ for (my $i = 0; $i < $row; $i++)
 		print <<"CONTENT";
 		<td>
 		<a href='../data/$data[$count]'>
-		<img src='../data/$thumb_name' title='$description' /></a>
+		<img src='../data/$thumb_name' title='$description'></a>
 CONTENT
 		if ($session == 1){
 			print "<figcation>$filename</figcation>";
