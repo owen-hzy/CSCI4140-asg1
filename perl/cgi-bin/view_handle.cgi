@@ -9,7 +9,7 @@ my $action = $q -> url_param("action");
 my $row = $q -> param("row") || 2;
 my $column = $q -> param("column") || 4;
 my $sort = $q -> param("sort") || "size";
-my $order = $q -> param("order") || "ASC";
+my $order = $q -> param("order") || "DESC";
 
 # Database Info
 my $db_host =       $ENV{'OPENSHIFT_MYSQL_DB_HOST'};
@@ -36,8 +36,8 @@ my $cookie4 = $q -> cookie(-name => "order", -value => $order, -expires => "+1h"
 sub get_data
 {
 	my @data = ();
-	my $query = $dbh -> prepare("SELECT name FROM photos ORDER BY ? ?");
-	$query -> execute($sort, $order) || die $query -> errstr;
+	my $query = $dbh -> prepare("SELECT name FROM photos ORDER BY $sort $order");
+	$query -> execute() || die $query -> errstr;
 	
 	while (my @result = $query -> fetchrow_array)
 	{
