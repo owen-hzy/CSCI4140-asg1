@@ -29,6 +29,7 @@ print <<"TOPBAR";
 
 <input type="submit" value="Change" />
 </form>
+<hr />
 TOPBAR
 
 
@@ -37,9 +38,10 @@ TOPBAR
 
 
 
-print <<"FOOTER"
+print <<"FOOTER";
+<hr />
 <section>
-<form method="POST" action="view_handle.cgi?action=go">
+<form method="POST" action="view.cgi?action=go">
 <label for="page">Page<input type="text" name="page" id="page" maxlength="3" value="1" /> of 10</label>
 <input type="submit" value="Go to page" />
 </form>
