@@ -158,7 +158,7 @@ sub insert_photo
 
 sub update_photo
 {
-	my $filename = shift;
+	my $name = shift;
 	my $description = shift;
 	my $totalBytes = shift;
 
@@ -171,15 +171,13 @@ sub update_photo
 	my $upload_dir = $ENV{"OPENSHIFT_DATA_DIR"};
 	my $q = CGI -> new;
 	
-	$_ = $filename;
-	my ($name, $ext) = /([a-z0-9-_]+).([a-z0-9-_]+)/;
+	$_ = $name;
+	my ($filename, $ext) = /([a-z0-9-_]+).([a-z0-9-_]+)/;
 	
-	my $thumb_name = $name . "_thumb." . $ext;
-	`/usr/bin/convert \"$upload_dir/tmp/$filename\" -resize 30% \"$upload_dir/$thumb_name\"`;
+	my $thumb_name = $filename . "_thumb." . $ext;
+	`/usr/bin/convert \"$upload_dir/$name\" -resize 30% \"$upload_dir/$thumb_name\"`;
 	
 	my $time = `/bin/date +%s`;
-	
-	`/bin/rm -rf \"$upload_dir/tmp\"`;
 	
 	# Connect the database
 	my $db_source = "DBI:mysql:$db_name;host=$db_host";
@@ -187,7 +185,7 @@ sub update_photo
 	###
 	
 	my $query = $dbh -> prepare("UPDATE photos SET (size =?, upload_time = ?, description = ?) WHERE name = ?");
-	$query -> execute($totalBytes, $time, $description, $filename) || die $query -> errstr;
+	$query -> execute($totalBytes, $time, $description, $name) || die $query -> errstr;
 	
 	$query -> finish;
 	$dbh -> disconnect;

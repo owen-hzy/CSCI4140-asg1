@@ -30,24 +30,22 @@ if ($choice eq "OVERWRITE")
 	`/bin/rm -f \"$upload_dir/$filename\"`;
 	`/bin/rm -f \"$upload_dir/$thumb_name\"`;
 	
+	`/bin/mv \"$upload_dir/tmp/$filename\" \"$upload_dir\$filename\"`;
+	`/bin/rm -rf \"$upload_dir/tmp\"`;
+	
 	# Read the file size, do not use identify cause it's not accurate
-	open(OUTFILE, "> $upload_dir/$filename") || die ("Can't open $filename for writing - $!");
-
 	my $ret = 0;
 	my $buffer ="";
 	my $totalBytes = 0;
 
-	open(INFILE, "$upload_dir/tmp/$filename");
+	open(INFILE, "$upload_dir/$filename");
 	
 	while ( $ret = read(INFILE, $buffer, 1024))
 	{
-		print OUTFILE $buffer;
 		$totalBytes += $ret;
 	}
 	###
-	close(INFILE);
-	close(OUTFILE);
-	
+	close(INFILE);	
 	
 	# Connect DB to get the description
 	my $db_source = "DBI:mysql:$db_name;host=$db_host";
