@@ -196,8 +196,8 @@ sub get_data
 {
 	my $q = CGI -> new;
 	
-	my $sort = $q -> param("sort") || $q -> cookie("sort") || "size";
-	my $order = $q -> param("order") || $q -> cookie("order") || "ASC";
+	my $sort = shift || "size";
+	my $order = shift || "ASC";
 	
 	# Database Info
 	my $db_host =       $ENV{'OPENSHIFT_MYSQL_DB_HOST'};

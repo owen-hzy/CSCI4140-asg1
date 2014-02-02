@@ -9,13 +9,6 @@ do "./include.cgi";
 my $q = CGI -> new;
 my $action = $q -> url_param("action");
 $action =~ tr/a-z/A-Z/;
-my $row = $q -> param("row") || $q -> cookie("row") || 2;
-my $column = $q -> param("column") || $q -> cookie("column") || 4;
-my $sort = $q -> param("sort") || $q -> cookie("sort") || "size";
-my $order = $q -> param("order") || $q -> cookie("order") || "ASC";
-
-my $mix = $row . "-" . $column . "-" . $sort . "-" . $order;
-my $cookie = $q -> cookie(-name => "mix", -value => $mix, -expires => "+1h", -path => "/cgi-bin");
 
 if ($action == "DELETE")
 {
@@ -64,7 +57,23 @@ if ($action == "DELETE")
 			
 		}
 	}
- 	print $q -> header(-cookie => $cookie, refresh => "0.1; url=http://asg1-wtoughwhard.rhcloud.com/cgi-bin/view.cgi");
+ 	print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/view.cgi");
+}
+
+if ($action eq "CHANGE")
+{
+	my $cookieo = $q -> cookie("mix");
+	my @array = split(/-/, $cookieo);
+	
+	my $row = $q -> param("row") || $array[0] || 2;
+	my $column = $q -> param("column") || $array[1] || 4;
+	my $sort = $q -> param("sort") || $array[2] || "size";
+	my $order = $q -> param("order") || $array[3] || "ASC";
+
+	my $mix = $row . "-" . $column . "-" . $sort . "-" . $order;
+	my $cookien = $q -> cookie(-name => "mix", -value => $mix, -expires => "+1h", -path => "/cgi-bin");
+	
+	print $q -> header(-cookie => $cookien, refresh => "0.1; url=http://asg1-wtoughwhard.rhcloud.com/cgi-bin/view.cgi");
 }
 
 

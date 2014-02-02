@@ -7,8 +7,13 @@ use DBI;
 do "./include.cgi";
 my $q = CGI -> new;
 my $session = session_check();
-my $row = $q -> cookie("row") || 2;
-my $column = $q -> cookie("column") || 4;
+my $mix = $q -> cookie("mix");
+my @cookie = split(/-/, $mix);
+
+my $row = $cookie[0] || 2;
+my $column = $cookie[1] || 4;
+my $sort = $cookie[2] || "size";
+my $order = $cookie[3] || "ASC";
 
 print $q -> header();
 print $q -> start_html(-title=>"VIEW", -meta=>{"http-equiv"=>"content-type", "content"=>"text/html; charset=UTF-8"});
@@ -34,7 +39,7 @@ print <<"TOPBAR";
 <hr />
 TOPBAR
 
-my @data = get_data();
+my @data = get_data($sort, $order);
 my $count = 0;
 if ($session != 1)
 {
