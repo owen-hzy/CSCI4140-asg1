@@ -21,7 +21,7 @@ print '<html><body>';
 
 my $db_source = "DBI:mysql:$db_name;host=$db_host";
 
-my $db_handle =
+my $dbh =
     DBI -> connect($db_source, $db_username, $db_password)
     or die $DBI::errstr;
 
@@ -37,7 +37,7 @@ $query -> execute() || die $query -> errstr;
 
 $query -> finish;
 
-$db_handle -> disconnect;
+$dbh -> disconnect;
 
 print 'Disconncted. DONE <br />';
 
