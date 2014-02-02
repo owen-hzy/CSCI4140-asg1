@@ -42,8 +42,8 @@ sub login
 	
 	if ($query -> rows == 0)
 	{
-		print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/login.cgi?e=1");
 		$dbh -> disconnect;
+		print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/login.cgi?e=1");
 		exit;
 	}else 
 	{
@@ -55,10 +55,10 @@ sub login
 		my $query = $dbh -> prepare("INSERT INTO sessions (sessid, expire) VALUES (?, ?)");
 		$query -> execute($sessid, $time) || die $query -> errstr;
 		
+		$dbh -> disconnect;
+		
 		my $cookie = $q -> cookie(-name => "SESSID", -value => $sessid, -expires => "+10h", -path => "/cgi-bin");
 		print $q -> header(-cookie => $cookie, -refresh => "0.1; url=http://asg1-wtoughwhard.rhcloud.com/cgi-bin/display.cgi");
-		
-		$dbh -> disconnect;
 	}
 		
 }
@@ -76,10 +76,10 @@ sub logout
 	my $query = $dbh -> prepare("DELETE FROM sessions WHERE sessid = ?");
 	$query -> execute($sessid) || die $query -> errstr;
 	
+	$dbh -> disconnect;
+	
 	my $cookie = $q -> cookie(-name => "SESSID", -value => $sessid, -expires => $time, -path => "/cgi-bin");
 	print $q -> header(-cookie => $cookie, -refresh => "0.1; url=http://asg1-wtoughwhard.rhcloud.com/cgi-bin/login.cgi?e=2");
-	
-	$dbh -> disconnect;
 }
 
  

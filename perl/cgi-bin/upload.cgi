@@ -60,8 +60,6 @@ check_duplicate();
 insert_photo();
 ###
 
-print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/upload_form.cgi?e=5");
-
 
 sub check_name_type
 {
@@ -94,8 +92,8 @@ sub check_duplicate
 	
 	if ($query -> rows != 0)
 	{
-		print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/duplicate.cgi");
 		$dbh -> disconnect;
+		print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/duplicate.cgi");
 		exit 0;	
 	}
 }
@@ -122,4 +120,6 @@ sub insert_photo
 	$query -> execute($filename, $thumb_name, $totalBytes, $time, $description) || die $query -> errstr;
 	
 	$dbh -> disconnect;
+	
+	print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/upload_form.cgi?e=5");
 }
