@@ -31,13 +31,20 @@ print 'Connected! <br />';
 
 # Disconnect immediately ...
 
-my $table = "test";
-my $query = $dbh -> prepare("DROP TABLE $table");
+my $table = "sessions";
+my $query = $dbh -> prepare("SELECT 1 FROM $table");
 $query -> execute() || die $query -> errstr;
+@data = $query -> fetchrow_array;
 
 $query -> finish;
 
+
 $dbh -> disconnect;
+
+foreach my $item (@data)
+{
+	print "$item\n";
+}
 
 print 'Disconncted. DONE <br />';
 
