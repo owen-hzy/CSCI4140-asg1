@@ -9,7 +9,7 @@ my $q = CGI -> new;
 my $session = session_check();
 my $mix = $q -> cookie("mix") || "2-4-size-ASC";
 my @cookie = split(/-/, $mix);
-my $page_nu = $q -> cookie("page") || 1;
+my $page_nu = $q -> url_param("p") || 1;
 
 my $row = $cookie[0];
 my $column = $cookie[1];
@@ -121,7 +121,7 @@ print <<"FOOTER";
 <hr />
 <section>
 <form method="POST" action="view_handle.cgi?action=go">
-<label for="page">Page<input type="text" name="page" id="page" maxlength="3" value="1" min="1" max="$page" /> of $page</label>
+<label for="page">Page<input type="text" name="page" id="page" maxlength="3" value="$page_nu" min="1" max="$page" /> of $page</label>
 <input type="submit" value="Go to page" />
 </form>
 </section>

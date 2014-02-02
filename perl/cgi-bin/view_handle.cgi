@@ -63,6 +63,7 @@ if ($action eq "DELETE")
 if ($action eq "CHANGE")
 {
 	my $cookieo = $q -> cookie("mix") || "2-4-size-ASC";
+	my $page_nu = $q -> url_param("p") || 1;
 	my @array = split(/-/, $cookieo);
 	
 	my $row = $q -> param("row") || $array[0];
@@ -73,15 +74,20 @@ if ($action eq "CHANGE")
 	my $mix = $row . "-" . $column . "-" . $sort . "-" . $order;
 	my $cookien = $q -> cookie(-name => "mix", -value => $mix, -expires => "+1h", -path => "/cgi-bin");
 	
-	print $q -> header(-cookie => $cookien, refresh => "0.1; url=http://asg1-wtoughwhard.rhcloud.com/cgi-bin/view.cgi");
+	if ($q -> param("row") == $array[0] && $q -> param("column") == $array[1])
+	{
+		print $q -> header(-cookie => $cookien, refresh => "0.1; url=http://asg1-wtoughwhard.rhcloud.com/cgi-bin/view.cgi?p=$page_nu");
+	}else
+	{
+		print $q -> header(-cookie => $cookien, refresh => "0.1; url=http://asg1-wtoughwhard.rhcloud.com/cgi-bin/view.cgi");
+	}
 }
 
 if ($action eq "GO")
 {
 	my $page = $q -> param("page") || 1;
-	my $page_cookie = $q -> cookie(-name => "page", -value => $page, -expires => "+1h", -path => "/cgi-bin");
 	
-	print $q -> header(-cookie => $page_cookie, refresh => "0.1; url=http://asg1-wtoughwhard.rhcloud.com/cgi-bin/view.cgi");
+	print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/view.cgi?p=$page");
 }
 
 
