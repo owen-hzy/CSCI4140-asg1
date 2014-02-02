@@ -63,7 +63,7 @@ MAIN_BODY
 
 if ($session == 0)
 {
-	print "<a href='view.cgi>View Album</a>";
+	print "<a href='view.cgi'>View Album</a><br />";
 	print "<a href='display.cgi'>Go to Display Panel Directly</a>";
 }else
 {
