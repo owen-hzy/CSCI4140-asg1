@@ -76,6 +76,14 @@ if ($action eq "CHANGE")
 	print $q -> header(-cookie => $cookien, refresh => "0.1; url=http://asg1-wtoughwhard.rhcloud.com/cgi-bin/view.cgi");
 }
 
+if ($action eq "GO")
+{
+	my $page = $q -> param("page") || 1;
+	my $page_cookie = $q -> cookie(-name => "page", -value => $page, -expires => "+1h", -path => "/cgi-bin");
+	
+	print $q -> header(-cookie => $page_cookie, refresh => "0.1; url=http://asg1-wtoughwhard.rhcloud.com/cgi-bin/view.cgi");
+}
+
 
 
 
