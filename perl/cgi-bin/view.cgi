@@ -29,7 +29,7 @@ HEADER
 
 print <<"TOPBAR";
 <section>
-<form method="POST" action="view_handle.cgi?action=change&p=$page_nu">
+<form method="POST" action="view_handle.cgi?action=change">
 <label for="row">Dimension:</label>
 <input type="number" name="row" id="row" maxlength="1" min="1" max="9" value="$row"/>x
 <input type="number" name="column" maxlength="1" value="$column" min="1" max="9" />

@@ -63,7 +63,6 @@ if ($action eq "DELETE")
 if ($action eq "CHANGE")
 {
 	my $cookieo = $q -> cookie("mix") || "2-4-size-ASC";
-	my $page_nu = $q -> url_param("p") || 1;
 	my @array = split(/-/, $cookieo);
 	
 	my $row = $q -> param("row") || $array[0];
