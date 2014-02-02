@@ -22,22 +22,38 @@ print <<"TOPBAR";
 <section>
 <form method="POST" action="view_handle.cgi?action=change">
 <label for="row">Dimension:</label>
-<input type="text" name="row" id="row" maxlength="1" />x<input type="text" name="column" maxlength="1" />
-<select name="sort">
-	<option value="size" selected>File Size</option>
-	<option value="name">Name</option>
-	<option value="upload_time">Upload time</option>
-</select>
-
-<select name="order">
-	<option value="ASC" selected>Ascending</option>
-	<option value="DESC">Descending</option>
-</select>
-
-<input type="submit" value="Change" />
-</form>
-<hr />
+<input type="text" name="row" id="row" maxlength="1" value="$row"/>x<input type="text" name="column" maxlength="1" value="$column"/>
 TOPBAR
+
+my @sort_ex = ("size", "name", "upload_time");
+print "<select name='sort'>";
+foreach my $sort_item (@sort_ex)
+{
+	if ($sort_item eq $sort)
+	{
+		print "<option value='$sort_item' selected>$sort_item</option>";
+	}else
+	{
+		print "<option value='$sort_item'>$sort_item</option>";
+	}
+}
+print "</select>";
+
+
+print "<select name='order'>";
+if ($order eq "ASC")
+{
+	print "<option value=''ASC' selected>Ascending</option><option value='DESC'>Descending</option>";
+}else
+{
+	print "<option value=''ASC'>Ascending</option><option value='DESC' selected>Descending</option>";
+}
+	
+print "</select>";
+
+print "<input type='submit' value='Change' />";
+print "</form>";
+print "<hr />";
 
 my @data = get_data($sort, $order);
 my $count = 0;
