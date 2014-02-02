@@ -10,6 +10,7 @@ my $session = session_check();
 my $row = $q -> cookie("row") || 2;
 my $column = $q -> cookie("column") || 4;
 my $width = 100/$column - 3;
+$width .= '%';
 
 print $q -> header();
 print $q -> start_html(-title=>"VIEW", -meta=>{"http-equiv"=>"content-type", "content"=>"text/html; charset=UTF-8"});
@@ -54,7 +55,7 @@ for (my $i = 0; $i < $row; $i++)
 		my $thumb_name = $filename . "_thumb." . $ext;
 		my $description = $data[$count + 1];
 		print <<"CONTENT";
-		<td width = '$width%'>
+		<td width = '$width'>
 		<a href='../data/$data[$count]'>
 		<img src='../data/$thumb_name' title='$description'></a>
 CONTENT
