@@ -20,6 +20,7 @@ my $db_name =       $ENV{'OPENSHIFT_APP_NAME'};
 my $upload_dir = $ENV{"OPENSHIFT_DATA_DIR"};
 
 my $filename = `/bin/ls \"$upload_dir/tmp\"`;
+$filename = chomp($filename);
 $_ = $filename;
 my ($name, $ext) = /([a-z0-9-_]+).([a-z0-9-_]+)/;
 my $thumb_name = $name . "_thumb." . $ext;
@@ -27,8 +28,8 @@ my $thumb_name = $name . "_thumb." . $ext;
 if ($choice eq "OVERWRITE")
 {
 	
-	`/bin/rm \"$upload_dir/$filename\"`;
-	`/bin/rm \"$upload_dir/$thumb_name\"`;
+	`/bin/rm -f \"$upload_dir/$filename\"`;
+	`/bin/rm -f \"$upload_dir/$thumb_name\"`;
 	
 	# Read the file size, do not use identify cause it's not accurate
 	open(OUTFILE, "> $upload_dir/$filename") || die ("Can't open $filename for writing - $!");
@@ -46,6 +47,9 @@ if ($choice eq "OVERWRITE")
 		$totalBytes += $ret;
 	}
 	###
+	close(INFILE);
+	close(OUTFILE);
+	
 	
 	# Connect DB to get the description
 	my $db_source = "DBI:mysql:$db_name;host=$db_host";
