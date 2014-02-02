@@ -32,15 +32,13 @@ print 'Connected! <br />';
 # Disconnect immediately ...
 
 my $table = "test";
-my $query = $dbh -> prepare("SELECT * FROM $db_name WHERE name=N'$table' AND type='U'");
+my $query = $dbh -> prepare("DROP TABLE $table");
 $query -> execute() || die $query -> errstr;
-my @data = $query -> fetchrow_array;
 
 $query -> finish;
 
 $dbh -> disconnect;
 
-print "$data[0]";
 print 'Disconncted. DONE <br />';
 
 print '</html></body>';
