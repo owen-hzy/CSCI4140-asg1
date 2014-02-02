@@ -53,10 +53,10 @@ print "</select>";
 print "<select name='order'>";
 if ($order eq "ASC")
 {
-	print "<option value=''ASC' selected>Ascending</option><option value='DESC'>Descending</option>";
+	print "<option value='ASC' selected>Ascending</option><option value='DESC'>Descending</option>";
 }else
 {
-	print "<option value=''ASC'>Ascending</option><option value='DESC' selected>Descending</option>";
+	print "<option value='ASC'>Ascending</option><option value='DESC' selected>Descending</option>";
 }
 	
 print "</select>";
