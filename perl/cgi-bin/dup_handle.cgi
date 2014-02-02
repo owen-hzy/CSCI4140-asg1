@@ -53,7 +53,7 @@ if ($choice eq "OVERWRITE")
 	###
 	my $sessid = $q -> cookie("SESSID");
 	
-	my $query = $dbh -> prepare("SELECT desc FROM sessions WHERE sessid = ?");
+	my $query = $dbh -> prepare("SELECT description FROM sessions WHERE sessid = ?");
 	$query -> execute($sessid) || die $query -> errstr;
 	my @description = $query -> fetchrow_array;
 	
