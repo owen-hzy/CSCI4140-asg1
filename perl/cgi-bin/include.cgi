@@ -184,7 +184,7 @@ sub update_photo
 	my $dbh = DBI -> connect($db_source, $db_username, $db_password) || die $DBI::errstr;
 	###
 	
-	my $query = $dbh -> prepare("UPDATE photos SET (size =?, upload_time = ?, description = ?) WHERE name = ?");
+	my $query = $dbh -> prepare("UPDATE photos SET size =?, upload_time = ?, description = ? WHERE name = ?");
 	$query -> execute($totalBytes, $time, $description, $name) || die $query -> errstr;
 	
 	$query -> finish;
