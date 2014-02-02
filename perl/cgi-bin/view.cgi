@@ -58,7 +58,7 @@ print "<hr />";
 my @data = get_data($sort, $order);
 my $photonu = (scalar @data)/2;
 my $total = $row * $column;
-my $page = $photonu/$total + 1;
+my $page = int($photonu/$total) + 1;
 my $count = 0;
 if ($session != 1)
 {
