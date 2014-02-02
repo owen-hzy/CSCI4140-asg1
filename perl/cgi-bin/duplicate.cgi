@@ -29,7 +29,7 @@ print "<br />";
 print "<label for='name'>New filename:</label><input type='text' id='name' name='rename' />.$ext";
 if ($error == 1)
 {
-	print $q -> h4("Please rename the file!");
+	print $q -> p("Please rename the file!");
 }
 print <<"PART";
 	<br />

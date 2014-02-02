@@ -95,3 +95,11 @@ if ($choice eq "RENAME")
 	
 	insert_photo($fullname, $result[2], $result[3]);
 }
+
+if ($choice eq "CANCEL")
+{
+	`/bin/rm -rf \"$upload_dir/tmp\"`;
+	
+	print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/upload_form.cgi?e=4");
+	
+}
