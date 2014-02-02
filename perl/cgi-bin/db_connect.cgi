@@ -31,20 +31,15 @@ print 'Connected! <br />';
 
 # Disconnect immediately ...
 
-my $table = "sessions";
-my $query = $dbh -> prepare("SELECT 1 FROM $table");
-$query -> execute() || die $query -> errstr;
-@data = $query -> fetchrow_array;
+my $name = "test";
+my $table = "DROP TABLE IF EXISTS $name";
+my $query = $dbh -> do( $table ) || die "Couldn't execute $table:" . DBI -> errstr;
 
 $query -> finish;
 
 
 $dbh -> disconnect;
 
-foreach my $item (@data)
-{
-	print "$item\n";
-}
 
 print 'Disconncted. DONE <br />';
 
