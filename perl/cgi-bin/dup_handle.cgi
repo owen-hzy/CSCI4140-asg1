@@ -20,7 +20,6 @@ my $db_name =       $ENV{'OPENSHIFT_APP_NAME'};
 my $upload_dir = $ENV{"OPENSHIFT_DATA_DIR"};
 
 my $filename = `/bin/ls \"$upload_dir/tmp\"`;
-$filename = chomp($filename);
 $_ = $filename;
 my ($name, $ext) = /([a-z0-9-_]+).([a-z0-9-_]+)/;
 my $thumb_name = $name . "_thumb." . $ext;
@@ -38,7 +37,6 @@ if ($choice eq "OVERWRITE")
 	my $buffer ="";
 	my $totalBytes = 0;
 
-	binmode $filename;
 	open(INFILE, "$upload_dir/tmp/$filename");
 	
 	while ( $ret = read(INFILE, $buffer, 1024))
