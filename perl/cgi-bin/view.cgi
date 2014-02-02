@@ -56,6 +56,9 @@ print "</form>";
 print "<hr />";
 
 my @data = get_data($sort, $order);
+my $photonu = (scalar @data)/2;
+my $total = $row * $column;
+my $page = $photonu/$total + 1;
 my $count = 0;
 if ($session != 1)
 {
@@ -112,7 +115,7 @@ print <<"FOOTER";
 <hr />
 <section>
 <form method="POST" action="view.cgi?action=go">
-<label for="page">Page<input type="text" name="page" id="page" maxlength="3" value="1" /> of 10</label>
+<label for="page">Page<input type="text" name="page" id="page" maxlength="3" value="1" /> of $page</label>
 <input type="submit" value="Go to page" />
 </form>
 </section>
