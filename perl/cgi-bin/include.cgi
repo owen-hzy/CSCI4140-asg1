@@ -170,16 +170,16 @@ sub update_photo
 	###
 	my $upload_dir = $ENV{"OPENSHIFT_DATA_DIR"};
 	my $q = CGI -> new;
-
-	`/bin/rm -rf \"$upload_dir/tmp\"`;
 	
 	$_ = $filename;
 	my ($name, $ext) = /([a-z0-9-_]+).([a-z0-9-_]+)/;
 	
 	my $thumb_name = $name . "_thumb." . $ext;
-	`/usr/bin/convert \"$upload_dir/$filename\" -resize 30% \"$upload_dir/$thumb_name\"`;
+	`/usr/bin/convert \"$upload_dir/tmp/$filename\" -resize 30% \"$upload_dir/$thumb_name\"`;
 	
 	my $time = `/bin/date +%s`;
+	
+	`/bin/rm -rf \"$upload_dir/tmp\"`;
 	
 	# Connect the database
 	my $db_source = "DBI:mysql:$db_name;host=$db_host";
