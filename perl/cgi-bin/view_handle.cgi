@@ -36,8 +36,8 @@ my $cookie4 = $q -> cookie(-name => "order", -value => $order, -expires => "+1h"
 sub get_data
 {
 	my @data = ();
-	my $query = $dbh -> prepare("SELECT name FROM photos ORDER BY $sort $order");
-	$query -> execute() || die $query -> errstr;
+	my $query = $dbh -> prepare("SELECT name FROM photos ORDER BY ? ?");
+	$query -> execute($sort, $order) || die $query -> errstr;
 	
 	while (my @result = $query -> fetchrow_array)
 	{
