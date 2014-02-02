@@ -9,6 +9,7 @@ session_check();
 ###
 
 my $q = CGI -> new;
+my $error = $q -> url_param("e") || 0;
 my $upload_dir = $ENV{"OPENSHIFT_DATA_DIR"};
 my $filename = `/bin/ls \"$upload_dir/tmp\"`;
 
@@ -26,6 +27,10 @@ print "<br />";
 print "<input type='radio' name='choice' id='rename' value='rename' /><label for='rename'>Rename the uploading file.</label>";
 print "<br />";
 print "<label for='name'>New filename:</label><input type='text' id='name' name='rename' />.$ext";
+if ($error == 1)
+{
+	print $q -> h4("Please rename the file!");
+}
 print <<"PART";
 	<br />
 	<input type="radio" name="choice" id="cancel" value="cancel" /><label for="cancel">Cancel the current upload.</label>

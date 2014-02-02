@@ -59,6 +59,7 @@ sub check_name_type
 	my $filename = shift;
 	$_ = $filename;
 	my ($name, $ext) = /([a-z0-9-_]+).([a-z0-9-_]+)/;
+	$ext =~ tr/a-z/A-Z/;
 	
 	my $q = CGI -> new;
 	my $upload_dir = $ENV{"OPENSHIFT_DATA_DIR"};
@@ -66,7 +67,7 @@ sub check_name_type
 	my $result = `/usr/bin/identify \"$upload_dir/tmp/$filename\"`;
 	my @type = split(/ /, $result);
 
-	if ($name && ($type[1] eq "JPEG" || $type[1] eq "PNG" || $type[1] eq "GIF"))
+	if ($name && ($ext eq "JPG" || $ext eq "JPEG" || $ext eq "PNG" || $ext eq "GIF") && ($type[1] eq "JPEG" || $type[1] eq "PNG" || $type[1] eq "GIF"))
 	{	
 		return 1;
 	}else
@@ -81,6 +82,7 @@ sub check_duplicate
 {
 	my $filename = shift;
 	my $description = shift;
+	my $size = shift;
 	
 	# Database Info
 	my $db_host =       $ENV{'OPENSHIFT_MYSQL_DB_HOST'};
@@ -105,8 +107,8 @@ sub check_duplicate
 		
 		my $sessid = $q -> cookie("SESSID");
 		
-		my $query = $dbh -> prepare("UPDATE sessions SET description = ? WHERE sessid = ?");
-		$query -> execute($description, $sessid) || die $query -> errstr;
+		my $query = $dbh -> prepare("UPDATE sessions SET description = ?, size = ? WHERE sessid = ?");
+		$query -> execute($description, $size, $sessid) || die $query -> errstr;
 		
 		$query -> finish;
 		$dbh -> disconnect;
@@ -161,7 +163,7 @@ sub update_photo
 	my $name = shift;
 	my $description = shift;
 	my $totalBytes = shift;
-
+	
 	# Database Info
 	my $db_host =       $ENV{'OPENSHIFT_MYSQL_DB_HOST'};
 	my $db_username =   $ENV{'OPENSHIFT_MYSQL_DB_USERNAME'};

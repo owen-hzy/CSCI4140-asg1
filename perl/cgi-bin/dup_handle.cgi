@@ -45,8 +45,8 @@ if ($choice eq "OVERWRITE")
 	{
 		$totalBytes += $ret;
 	}
-	###
 	close(INFILE);	
+	###
 	
 	# Connect DB to get the description
 	my $db_source = "DBI:mysql:$db_name;host=$db_host";
@@ -54,12 +54,44 @@ if ($choice eq "OVERWRITE")
 	###
 	my $sessid = $q -> cookie("SESSID");
 	
-	my $query = $dbh -> prepare("SELECT description FROM sessions WHERE sessid = ?");
+	my $query = $dbh -> prepare("SELECT * FROM sessions WHERE sessid = ?");
 	$query -> execute($sessid) || die $query -> errstr;
-	my @description = $query -> fetchrow_array;
+	my @result = $query -> fetchrow_array;
 	
 	$query -> finish;
 	$dbh -> disconnect;
 	
-	update_photo($filename, $description[0], $totalBytes);
+	update_photo($filename, $result[2], $totalBytes);
+}
+
+if ($choice eq "RENAME")
+{
+	my $rename = $q -> param("rename");
+	if(!$rename)
+	{
+		print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/duplicate.cgi?e=1");
+		exit 0;
+	}
+	
+	my $fullname = $rename . "." . $ext;
+	`/bin/mv \"$upload_dir/tmp/$filename\" \"$upload_dir/tmp/$fullname\"`;
+	
+	check_name_type($fullname);
+	
+	# Connect DB to get the description
+	my $db_source = "DBI:mysql:$db_name;host=$db_host";
+	my $dbh = DBI -> connect($db_source, $db_username, $db_password) || die $DBI::errstr;
+	###
+	my $sessid = $q -> cookie("SESSID");
+	
+	my $query = $dbh -> prepare("SELECT * FROM sessions WHERE sessid = ?");
+	$query -> execute($sessid) || die $query -> errstr;
+	my @result = $query -> fetchrow_array;
+	
+	$query -> finish;
+	$dbh -> disconnect;
+	
+	check_duplicate($fullname, $result[2], $result[3]);
+	
+	insert_photo($fullname, $result[2], $result[3]);
 }
