@@ -52,7 +52,7 @@ print <<"MAIN_BODY";
 
 <br />
 <section>
-	<a href="view.cgi">View Album</a>
+	<a href="view.cgi">View Album (read_only)</a>
 </section>
 MAIN_BODY
 
