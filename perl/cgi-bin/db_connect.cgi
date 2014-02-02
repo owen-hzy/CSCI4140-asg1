@@ -35,7 +35,6 @@ my $name = "test";
 my $table = "DROP TABLE IF EXISTS $name";
 my $query = $dbh -> do( $table ) || die "Couldn't execute $table:" . DBI -> errstr;
 
-$query -> finish;
 
 
 $dbh -> disconnect;
