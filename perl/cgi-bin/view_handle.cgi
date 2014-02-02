@@ -10,7 +10,7 @@ my $q = CGI -> new;
 my $action = $q -> url_param("action");
 $action =~ tr/a-z/A-Z/;
 
-if ($action == "DELETE")
+if ($action eq "DELETE")
 {
 	# Check the session info
 	if (session_check() == 1)
@@ -62,13 +62,13 @@ if ($action == "DELETE")
 
 if ($action eq "CHANGE")
 {
-	my $cookieo = $q -> cookie("mix");
+	my $cookieo = $q -> cookie("mix") || "2-4-size-ASC";
 	my @array = split(/-/, $cookieo);
 	
-	my $row = $q -> param("row") || $array[0] || 2;
-	my $column = $q -> param("column") || $array[1] || 4;
-	my $sort = $q -> param("sort") || $array[2] || "size";
-	my $order = $q -> param("order") || $array[3] || "ASC";
+	my $row = $q -> param("row") || $array[0];
+	my $column = $q -> param("column") || $array[1];
+	my $sort = $q -> param("sort") || $array[2];
+	my $order = $q -> param("order") || $array[3];
 
 	my $mix = $row . "-" . $column . "-" . $sort . "-" . $order;
 	my $cookien = $q -> cookie(-name => "mix", -value => $mix, -expires => "+1h", -path => "/cgi-bin");

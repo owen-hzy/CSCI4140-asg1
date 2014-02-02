@@ -7,13 +7,13 @@ use DBI;
 do "./include.cgi";
 my $q = CGI -> new;
 my $session = session_check();
-my $mix = $q -> cookie("mix");
+my $mix = $q -> cookie("mix") || "2-4-size-ASC";
 my @cookie = split(/-/, $mix);
 
-my $row = $cookie[0] || 2;
-my $column = $cookie[1] || 4;
-my $sort = $cookie[2] || "size";
-my $order = $cookie[3] || "ASC";
+my $row = $cookie[0];
+my $column = $cookie[1];
+my $sort = $cookie[2];
+my $order = $cookie[3];
 
 print $q -> header();
 print $q -> start_html(-title=>"VIEW", -meta=>{"http-equiv"=>"content-type", "content"=>"text/html; charset=UTF-8"});
