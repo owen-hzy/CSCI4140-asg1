@@ -58,10 +58,10 @@ for (my $i = 0; $i < $row; $i++)
 		<img src='../data/$thumb_name' title='$description'></a>
 CONTENT
 		if ($session == 1){
-			print "<br /><figcation>$filename</figcation>";
+			print "<br /><figcation>$data[$count]</figcation>";
 		}else
 		{
-			print "<br /><figcation><input type='checkbox' name='$filename' value='selected' />$filename</figcation>";
+			print "<br /><figcation><input type='checkbox' name='$data[$count]' value='selected' />$data[$count]</figcation>";
 		}
 		print "</td>";
 		$count += 2;
