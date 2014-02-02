@@ -19,10 +19,8 @@ my $cookie2 = $q -> cookie(-name => "column", -value => $column, -expires => "+1
 my $cookie3 = $q -> cookie(-name => "sort", -value => $sort, -expires => "+1h", -path => "/cgi-bin");
 my $cookie4 = $q -> cookie(-name => "order", -value => $order, -expires => "+1h", -path => "/cgi-bin");
 
-#print $q -> header(-cookie => $cookie1);
-#print $q -> header(-cookie => $cookie2);
-#print $q -> header(-cookie => $cookie3);
-#print $q -> header(-cookie => $cookie4);
+my $cookie = $cookie1 . "-" . $cookie2 . "-" . $cookie3 . "-" . $cookie4;
+print $q -> header(-cookie => $cookie);
 
 if ($action == "DELETE")
 {
