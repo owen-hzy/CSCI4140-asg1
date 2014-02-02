@@ -2,6 +2,7 @@
 
 use CGI;
 use DBI;
+use strict;
 
 my $q = CGI -> new;
 my $action = $q -> url_param("action");
@@ -38,7 +39,7 @@ sub get_data
 	my $query = $dbh -> prepare("SELECT name FROM photos ORDER BY ? ?");
 	$query -> execute($sort, $order) || die $query -> errstr;
 	
-	while (@result = $query -> fetchrow_array)
+	while (my @result = $query -> fetchrow_array)
 	{
 		push(@data, $result[0]);
 	}
@@ -49,6 +50,7 @@ sub get_data
 	return @data;
 }
 
+print $q -> header();
 my @array = get_data();
 foreach my $item (@array)
 {
