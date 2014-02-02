@@ -69,59 +69,66 @@ my @data = get_data($sort, $order);
 my $photonu = (scalar @data)/2;
 my $total = $row * $column;
 my $page = $photonu/$total;
-if (int($page) != $page)
+if ($page == 0)
 {
-	$page = int($page) + 1;
+	$page = 1;
 }
-my $count = ($page_nu - 1) * 2 * $total;
-if ($session != 1)
+if ($photonu != 0)
 {
-	print "<form method='POST' action='view_handle.cgi?action=delete'>";
-}
-print "<table cellpadding='5pt' cellspacing='5pt'>";
-
-for (my $i = 0; $i < $row; $i++)
-{
-	print "<tr>";
-	for (my $j = 0; $j < $column; $j++)
+	
+	if (int($page) != $page)
 	{
-		$_ = $data[$count];
-		my ($filename, $ext) = /([a-z0-9-_]+).([a-z0-9-_]+)/;
-	
-		my $thumb_name = $filename . "_thumb." . $ext;
-		my $description = $data[$count + 1];
-		print <<"CONTENT";
-		<td>
-		<a href='../data/$data[$count]'>
-		<img src='../data/$thumb_name' title='$description'></a>
-CONTENT
-		if ($session == 1){
-			print "<figcaption>$data[$count]</figcaption>";
-		}else
+		$page = int($page) + 1;
+	}
+	my $count = ($page_nu - 1) * 2 * $total;
+	if ($session != 1)
+	{
+		print "<form method='POST' action='view_handle.cgi?action=delete'>";
+	}
+	print "<table cellpadding='5pt' cellspacing='5pt'>";
+
+	for (my $i = 0; $i < $row; $i++)
+	{
+		print "<tr>";
+		for (my $j = 0; $j < $column; $j++)
 		{
-			print "<figcaption><input type='checkbox' name='$data[$count]' value='selected' />$data[$count]</figcaption>";
-		}
-		print "</td>";
-		$count += 2;
+			$_ = $data[$count];
+			my ($filename, $ext) = /([a-z0-9-_]+).([a-z0-9-_]+)/;
+			
+			my $thumb_name = $filename . "_thumb." . $ext;
+			my $description = $data[$count + 1];
+			print <<"CONTENT";
+			<td>
+			<a href='../data/$data[$count]'>
+			<img src='../data/$thumb_name' title='$description'></a>
+CONTENT
+			if ($session == 1){
+				print "<figcaption>$data[$count]</figcaption>";
+			}else
+			{
+				print "<figcaption><input type='checkbox' name='$data[$count]' value='selected' />$data[$count]</figcaption>";
+			}
+			print "</td>";
+			$count += 2;
 	
+			if ($count >= scalar @data)
+			{
+				last;
+			}	
+		}
+		print "</tr>";
 		if ($count >= scalar @data)
 		{
 			last;
-		}	
+		}
 	}
-	print "</tr>";
-	if ($count >= scalar @data)
-	{
-		last;
+
+	print "</table>";
+	if ($session != 1){
+		print "<input type='submit' value='Remove selected' />";
+		print "</form>";
 	}
 }
-
-print "</table>";
-if ($session != 1){
-	print "<input type='submit' value='Remove selected' />";
-	print "</form>";
-}
-
 
 
 
