@@ -52,10 +52,11 @@ sub login
 		my $range = 100000000000;
 		my $sessid = int(rand($range));
 		my $time = `date +%s`;
+		my $desc = "null";
 		$time += 36000;
 		
-		my $query = $dbh -> prepare("INSERT INTO sessions (sessid, expire) VALUES (?, ?)");
-		$query -> execute($sessid, $time) || die $query -> errstr;
+		my $query = $dbh -> prepare("INSERT INTO sessions (sessid, expire) VALUES (?, ?, ?)");
+		$query -> execute($sessid, $time, $desc) || die $query -> errstr;
 		
 		$query -> finish;
 		$dbh -> disconnect;
