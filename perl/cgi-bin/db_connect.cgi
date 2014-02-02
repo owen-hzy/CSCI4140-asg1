@@ -31,6 +31,12 @@ print 'Connected! <br />';
 
 # Disconnect immediately ...
 
+my $table = "test";
+my $query = $dbh -> prepare("IF EXISTS (SELECT * FROM $db_name.tables WHERE name=N'$table' AND type='U')  BEGIN DROP TABLE $table  END");
+$query -> execute() || die $query -> errstr;
+
+$query -> finish;
+
 $db_handle -> disconnect;
 
 print 'Disconncted. DONE <br />';
