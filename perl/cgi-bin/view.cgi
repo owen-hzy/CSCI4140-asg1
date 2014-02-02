@@ -17,11 +17,19 @@ my $sort = $cookie[2];
 my $order = $cookie[3];
 
 print $q -> header();
-print $q -> start_html(-title=>"VIEW", -meta=>{"http-equiv"=>"content-type", "content"=>"text/html; charset=UTF-8"});
+print <<"HEADER";
+<!DOCTYPE html>
+<html>
+<head>
+<title>VIEW</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+</head>
+<body>
+HEADER
 
 print <<"TOPBAR";
 <section>
-<form method="POST" action="view_handle.cgi?action=change">
+<form method="POST" action="view_handle.cgi?action=change&p=$page_nu">
 <label for="row">Dimension:</label>
 <input type="text" name="row" id="row" maxlength="1" min="1" max="9" value="$row"/>x
 <input type="text" name="column" maxlength="1" value="$column" min="1" max="9" />
