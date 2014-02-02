@@ -129,7 +129,7 @@ print <<"FOOTER";
 <hr />
 <section>
 <form method="POST" action="view_handle.cgi?action=go">
-<label for="page">Page<input type="number" name="page" id="page" maxlength="3" value="$page_nu" min="1" max="$page" /> of $page</label>
+Page<input type="number" name="page" maxlength="3" value="$page_nu" min="1" max="$page" /> of $page
 <input type="submit" value="Go to page" />
 </form>
 </section>

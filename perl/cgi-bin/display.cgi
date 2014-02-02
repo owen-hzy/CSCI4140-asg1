@@ -15,7 +15,15 @@ if (session_check() == 1)
 ###
 
 print $q -> header();
-print $q -> start_html(-title => "DISPLAY", -meta => {"http-equiv"=>"content-type", "content"=>"text/html; charset=UTF-8"});
+print <<"HEADER";
+<!DOCTYPE html>
+<html>
+<head>
+<title>DISPLAY</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+</head>
+<body>
+HEADER
 
 print <<"MAIN_BODY";
 <section>

@@ -7,7 +7,15 @@ my $q = CGI -> new;
 my $e = $q -> url_param("e") || 0;
 
 print $q -> header();
-print $q -> start_html(-title=>"LOGIN", -meta=>{"http-equiv"=>"content-type", "content"=>"text/html; charset=UTF-8"});
+print <<"HEADER";
+<!DOCTYPE html>
+<html>
+<head>
+<title>LOGIN</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+</head>
+<body>
+HEADER
 
 if ($e == 1)
 {

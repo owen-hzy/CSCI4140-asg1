@@ -17,7 +17,15 @@ $_ = $filename;
 my ($name, $ext) = /([a-z0-9-_]+).([a-z0-9-_]+)/;
 
 print $q -> header();
-print $q -> start_html(-title=>"CHOICE", -meta=>{"http-equiv"=>"content-type", "content"=>"text/html; charset=UTF-8"});
+print <<"HEADER";
+<!DOCTYPE html>
+<html>
+<head>
+<title>CHOICE</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+</head>
+<body>
+HEADER
 
 
 print "<section>";
