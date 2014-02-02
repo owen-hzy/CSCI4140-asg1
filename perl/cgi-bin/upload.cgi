@@ -26,6 +26,11 @@ if(!$filename) {
 ###
 
 # put the file into teporary folder
+
+# In case there is another tmp
+`/bin/rm -rf \"$upload_dir/tmp\"`;
+###
+
 `/bin/mkdir \"$upload_dir/tmp\"`;
 open(OUTFILE, "> $upload_dir/tmp/$filename") || die ("Can't open $filename for writing - $!");
 
