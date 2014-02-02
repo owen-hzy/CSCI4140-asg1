@@ -17,8 +17,8 @@ if ($choice == 1)
 	
 	my $upload_dir = $ENV{"OPENSHIFT_DATA_DIR"};
 	
-	my $db_source = "DBI:mysql;$db_name;host=$db_host";
-	my $dbh = DBI -> connect($db_source, $db_username, $db_password) || die DBI::errstr;
+	my $db_source = "DBI:mysql:$db_name;host=$db_host";
+	my $dbh = DBI -> connect($db_source, $db_username, $db_password) || die $DBI::errstr;
 	my @table = ("users, sessions, photos");
 	
 	foreach my $table_name (@table)
