@@ -100,7 +100,7 @@ if ($photonu != 0)
 			print <<"CONTENT";
 			<td>
 			<a href='../data/$data[$count]'>
-			<img src='../data/$thumb_name' title='$description'></a>
+			<img src='../data/$thumb_name' title='$description' height='100px' width='100px'></a>
 CONTENT
 			if ($session == 1){
 				print "<figcaption>$data[$count]</figcaption>";
