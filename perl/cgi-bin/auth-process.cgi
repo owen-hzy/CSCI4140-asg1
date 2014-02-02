@@ -57,7 +57,7 @@ sub login
 		my $query = $dbh -> prepare("INSERT INTO sessions (sessid, expire) VALUES (?, ?)");
 		$query -> execute($sessid, $time) || die $query -> errstr;
 		
-		$query -> destroy;
+		$query -> finish;
 		$dbh -> disconnect;
 		
 		my $cookie = $q -> cookie(-name => "SESSID", -value => $sessid, -expires => "+10h", -path => "/cgi-bin");
