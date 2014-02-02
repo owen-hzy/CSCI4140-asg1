@@ -20,7 +20,7 @@ my $db_name =       $ENV{'OPENSHIFT_APP_NAME'};
 my $upload_dir = $ENV{"OPENSHIFT_DATA_DIR"};
 
 my $filename = `/bin/ls \"$upload_dir/tmp\"`;
-$filename = chomp($filename);
+chomp($filename);
 $_ = $filename;
 my ($name, $ext) = /([a-z0-9-_]+).([a-z0-9-_]+)/;
 my $thumb_name = $name . "_thumb." . $ext;
