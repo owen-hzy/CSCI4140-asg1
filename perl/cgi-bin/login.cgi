@@ -6,6 +6,9 @@ use CGI;
 my $q = CGI -> new;
 my $e = $q -> url_param("e") || 0;
 
+do "./include.cgi";
+my $session = session_check();
+
 print $q -> header();
 print <<"HEADER";
 <!DOCTYPE html>
@@ -16,6 +19,11 @@ print <<"HEADER";
 </head>
 <body>
 HEADER
+
+if ($session == 0)
+{
+	print $q -> h3("Welcome the returned user!");
+}
 
 if ($e == 1)
 {
@@ -55,5 +63,11 @@ print <<"MAIN_BODY";
 	<a href="view.cgi">View Album (read_only)</a>
 </section>
 MAIN_BODY
+
+if ($session == 0)
+{
+	print "<a href='display.cgi'>Go to Display Panel Directly</a>";
+}
+
 
 print $q -> end_html;

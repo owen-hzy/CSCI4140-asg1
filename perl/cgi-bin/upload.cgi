@@ -29,6 +29,14 @@ if(!$filename) {
 }
 ###
 
+# Escape the spacial character
+$description =~ s/</&lt;/g;
+$description =~ s/>/&gt;/g;
+$description =~ s/"/&quot;/g;
+$description =~ s/'/&#39;/g;
+$description =~ s/&/&amp;/g;
+###
+
 # put the file into teporary folder
 
 # In case there is another tmp
@@ -52,6 +60,14 @@ while ( $ret = read($q->upload("pic"), $buffer, 1024))
 
 close(OUTFILE);
 ###
+
+### Check the file size
+if ($totalBytes > 1000000)
+{
+	`/bin/rm -f \"$upload_dir/tmp\"`;
+	print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/upload_form.cgi?e=1");
+	exit 0;
+}
 
 # first check file name and type 
 check_name_type($filename);
