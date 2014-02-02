@@ -36,7 +36,7 @@ TOPBAR
 
 my @data = get_data();
 my $count = 0;
-if ($session == 1)
+if ($session != 1)
 {
 	print "<form method='POST' action='view_handle.cgi?action=delete'>";
 }
@@ -79,7 +79,7 @@ CONTENT
 }
 
 print "</table>";
-if ($session == 1){
+if ($session != 1){
 	print "<input type='submit' value='Remove selected' />";
 	print "</form>";
 }
