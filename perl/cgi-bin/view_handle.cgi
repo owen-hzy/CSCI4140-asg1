@@ -26,6 +26,14 @@ my $cookie4 = $q -> cookie(-name => "order", -value => $order, -expires => "+1h"
 
 if ($action == "DELETE")
 {
+	# Check the session info
+	if (session_check() == 1)
+	{
+		print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/login.cgi?e=3");
+		exit;
+	}
+	###
+	
 	my @data = get_data();
 	for (my $i = 0; $i < scalar @data; $i += 2)
 	{
