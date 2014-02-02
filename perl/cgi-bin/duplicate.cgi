@@ -17,7 +17,7 @@ $_ = $filename;
 my ($name, $ext) = /([a-z0-9-_]+).([a-z0-9-_]+)/;
 
 print $q -> header();
-print $q -> start_html(-title=>"LOGIN", -meta=>{"http-equiv"=>"content-type", "content"=>"text/html; charset=UTF-8"});
+print $q -> start_html(-title=>"CHOICE", -meta=>{"http-equiv"=>"content-type", "content"=>"text/html; charset=UTF-8"});
 
 
 print "<section>";

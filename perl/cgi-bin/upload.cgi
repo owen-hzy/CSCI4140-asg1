@@ -8,8 +8,12 @@ use CGI::Carp qw/warningsToBrowser fatalsToBrowser/;
 do "./include.cgi";
 
 my $q = new CGI;
-# Check the session information
-session_check();
+# Check the session info
+if (session_check() == 1)
+{
+	print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/login.cgi?e=3");
+	exit;
+}
 ###
 
 my $upload_dir = $ENV{"OPENSHIFT_DATA_DIR"};

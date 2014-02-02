@@ -6,8 +6,12 @@ use CGI;
 do "./include.cgi";
 
 my $q = CGI -> new;
-# Check the session information
-session_check();
+# Check the session info
+if (session_check() == 1)
+{
+	print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/login.cgi?e=3");
+	exit;
+}
 ###
 
 my $error = $q -> url_param("e") || 0;

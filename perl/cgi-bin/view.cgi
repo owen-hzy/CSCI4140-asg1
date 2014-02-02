@@ -4,20 +4,45 @@ use strict;
 use CGI;
 use DBI;
 
+do "./include.cgi";
 my $q = CGI -> new;
-my $db_host =       $ENV{'OPENSHIFT_MYSQL_DB_HOST'};
-	my $db_username =   $ENV{'OPENSHIFT_MYSQL_DB_USERNAME'};
-	my $db_password =   $ENV{'OPENSHIFT_MYSQL_DB_PASSWORD'};
-	my $db_name =       $ENV{'OPENSHIFT_APP_NAME'};
-	my $db_source = "DBI:mysql:$db_name;host=$db_host";
-	my $dbh = DBI -> connect($db_source, $db_username, $db_password) || die $DBI::errstr;
-	my $description = "hello";
-	my $sessid = $q -> cookie("SESSID");
-	
-	my $query = $dbh -> prepare("UPDATE sessions SET description = ? WHERE sessid = ?");
-		$query -> execute($description, $sessid) || die $query -> errstr;
-		$query -> finish;
-		$dbh -> disconnect;
-		
-		print $q -> header();
-		print $q -> h3("hello ok!");
+my $session = session_check();
+
+print $q -> header();
+print $q -> start_html(-title=>"UPLOAD", -meta=>{"http-equiv"=>"content-type", "content"=>"text/html; charset=UTF-8"});
+
+print <<"TOPBAR";
+<section>
+<form method="POST" action="view_handle.cgi?action=change">
+<label for="row">Dimension:</label>
+<input type="text" name="row" id="row" maxlength="1" />x<input type="text" name="column" maxlength="1" />
+<select name="sort">
+	<option value="size" selected>File Size</option>
+	<option value="name">Name</option>
+	<option value="time">Upload time</option>
+</select>
+
+<select name="order">
+	<option value="ascending" selected>Ascending</option>
+	<option value="descending">Descending</option>
+</select>
+
+<input type="submit" value="Change" />
+</form>
+TOPBAR
+
+
+
+
+
+
+
+print <<"FOOTER"
+<section>
+<form method="POST" action="view_handle.cgi?action=go">
+<label for="page">Page<input type="text" name="page" id="page" maxlength="3" value="1" /> of 10</label>
+<input type="submit" value="Go to page" />
+</form>
+</section>
+FOOTER
+

@@ -16,8 +16,7 @@ sub session_check
 	my $sessid = $q -> cookie("SESSID");
 	if (!$sessid)
 	{
-		print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/login.cgi?e=3");
-		exit;
+		return 1;
 	}else
 	{		
 		# Connect the database
@@ -34,8 +33,7 @@ sub session_check
 			$query -> finish;
 			$dbh -> disconnect;
 			
-			print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/login.cgi?e=3");
-			exit;
+			return 1;
 		}elsif ($data[1] < `date +%s`)
 		{
 			my $query = $dbh -> prepare("DELETE FROM sessions WHERE sessid = ?");
@@ -44,14 +42,13 @@ sub session_check
 			$query -> finish;
 			$dbh -> disconnect;
 			
-			print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/login.cgi?e=3");
-			exit;
+			return 1;
 		}
 		
 		$query -> finish;
 		$dbh -> disconnect;
-		
 	}
+	return 0;
 }
 
 sub check_name_type

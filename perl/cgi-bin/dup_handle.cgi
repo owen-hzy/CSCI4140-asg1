@@ -4,12 +4,17 @@ use strict;
 use CGI;
 use DBI;
 
+my $q = CGI -> new;
 do "./include.cgi";
+
 # Check the session info
-session_check();
+if (session_check() == 1)
+{
+	print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/login.cgi?e=3");
+	exit;
+}
 ###
 
-my $q = CGI -> new;
 my $choice = $q -> param("choice") || "No choice";
 $choice =~ tr/a-z/A-Z/;
 
