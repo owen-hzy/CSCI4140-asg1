@@ -19,12 +19,12 @@ print <<"TOPBAR";
 <select name="sort">
 	<option value="size" selected>File Size</option>
 	<option value="name">Name</option>
-	<option value="time">Upload time</option>
+	<option value="upload_time">Upload time</option>
 </select>
 
 <select name="order">
-	<option value="ascending" selected>Ascending</option>
-	<option value="descending">Descending</option>
+	<option value="ASC" selected>Ascending</option>
+	<option value="DESC">Descending</option>
 </select>
 
 <input type="submit" value="Change" />

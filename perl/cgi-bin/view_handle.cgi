@@ -22,4 +22,39 @@ my $db_source = "DBI:mysql:$db_name;host=$db_host";
 my $dbh = DBI -> connect($db_source, $db_username, $db_password) || die $DBI::errstr;
 ###
 
+my $cookie1 = $q -> cookie(-name => "row", -value => $row, -expires => "+1h", -path => "/cgi-bin/view.cgi");
+my $cookie2 = $q -> cookie(-name => "column", -value => $column, -expires => "+1h", -path => "/cgi-bin/view.cgi");
+my $cookie3 = $q -> cookie(-name => "sort", -value => $sort, -expires => "+1h", -path => "/cgi-bin/view.cgi");
+my $cookie4 = $q -> cookie(-name => "order", -value => $order, -expires => "+1h", -path => "/cgi-bin/view.cgi");
+
+#print $q -> header(-cookie => $cookie1);
+#print $q -> header(-cookie => $cookie2);
+#print $q -> header(-cookie => $cookie3);
+#print $q -> header(-cookie => $cookie4);
+
+sub get_data
+{
+	my @data = ();
+	my $query = $dbh -> prepare("SELECT name FROM photos ORDER BY ? ?");
+	$query -> execute($sort, $order) || die $query -> errstr;
+	
+	while (@result = $query -> fetchrow_array)
+	{
+		push(@data, $result[0]);
+	}
+	
+	$query -> finish;
+	$dbh -> disconnect;
+	
+	return @data;
+}
+
+my @array = get_data();
+foreach my $item (@array)
+{
+	print "$item\n";
+}
+
+
+
 
