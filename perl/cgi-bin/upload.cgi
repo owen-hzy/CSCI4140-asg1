@@ -54,7 +54,7 @@ check_name_type($filename);
 ###
 
 # then do the duplicate checking
-check_duplicate($filename);
+check_duplicate($filename, $description);
 ###
 
 # update storage		

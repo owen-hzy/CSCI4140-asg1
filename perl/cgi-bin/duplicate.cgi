@@ -23,9 +23,9 @@ print "<section>";
 print "<form method='post' action='dup_handle.cgi'>";
 print "<input type='radio' name='choice' id='overwrite' value='overwrite' /><label for='overwrite'>Overwrite the exisiting file \"$filename\"</label>";
 print "<br />"; 
-print "<input type='radio' name='choice' id='rename' value='rename' /><label for='rename'><label for='name'>Rename the uploading file.</label></label>";
+print "<input type='radio' name='choice' id='rename' value='rename' /><label for='rename'>Rename the uploading file.</label>";
 print "<br />";
-print "<label for='name'>New filename:</label><input type='text' id='name' name='rename' />.\"$ext\"";
+print "<label for='name'>New filename:</label><input type='text' id='name' name='rename' />.$ext";
 print <<"PART";
 	<br />
 	<input type="radio" name="choice" id="cancel" value="cancel" /><label for="cancel">Cancel the current upload.</label>
