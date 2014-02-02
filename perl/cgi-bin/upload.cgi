@@ -92,7 +92,9 @@ sub check_duplicate
 	
 	if ($query -> rows != 0)
 	{
+		$query -> finish;
 		$dbh -> disconnect;
+		
 		print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/duplicate.cgi");
 		exit 0;	
 	}
@@ -119,6 +121,7 @@ sub insert_photo
 	my $query = $dbh -> prepare("INSERT INTO photos (name, thumb_name, size, upload_time, description) VALUES (?, ?, ?, ?, ?)");
 	$query -> execute($filename, $thumb_name, $totalBytes, $time, $description) || die $query -> errstr;
 	
+	$query -> finish;
 	$dbh -> disconnect;
 	
 	print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/upload_form.cgi?e=5");

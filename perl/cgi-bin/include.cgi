@@ -31,7 +31,9 @@ sub session_check
 		
 		if ($query -> rows == 0)
 		{
+			$query -> finish;
 			$dbh -> disconnect;
+			
 			print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/login.cgi?e=3");
 			exit;
 		}elsif ($data[1] < `date +%s`)
@@ -39,11 +41,14 @@ sub session_check
 			my $query = $dbh -> prepare("DELETE FROM sessions WHERE sessid = ?");
 			$query -> execute($sessid) || die $query -> errstr;
 			
+			$query -> finish;
 			$dbh -> disconnect;
+			
 			print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/login.cgi?e=3");
 			exit;
 		}
 		
+		$query -> finish;
 		$dbh -> disconnect;
 		
 	}
