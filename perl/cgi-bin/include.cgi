@@ -105,10 +105,10 @@ sub check_duplicate
 		
 		my $sessid = $q -> cookie("SESSID");
 		
-		my $query1 = $dbh -> prepare("UPDATE sessions SET (desc = ?) WHERE sessid = ?");
-		$query1 -> execute($description, $sessid) || die $query1 -> errstr;
+		my $query = $dbh -> prepare("UPDATE sessions SET desc = ? WHERE sessid = ?");
+		$query -> execute($description, $sessid) || die $query -> errstr;
 		
-		$query1 -> finish;
+		$query -> finish;
 		$dbh -> disconnect;
 		
 		print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/duplicate.cgi");
