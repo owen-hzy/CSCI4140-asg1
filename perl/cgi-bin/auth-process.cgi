@@ -42,7 +42,7 @@ sub login
 		my $query = $dbh -> prepare("SELECT * FROM sessions WHERE id = ?");
 		$query -> execute($cookie) || die $query -> errstr;
 		
-		if ($query -> row == 0)
+		if ($query -> rows == 0)
 		{
 			undef $cookie;
 		}
