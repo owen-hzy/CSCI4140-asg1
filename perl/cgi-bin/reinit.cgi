@@ -29,7 +29,7 @@ if ($choice == 1)
 	}
 	
 	my $create1 = <<"CREATE_SESSIONS";
-	CREATE TABLE sessions (sessid BIGINT NOT NULL PRIMARY KEY, expire BIGINT NOT NULL, description TEXT, size INT)
+	CREATE TABLE sessions (id VARCHAR(100) NOT NULL PRIMARY KEY, sessid VARCHAR(100), expire BIGINT, description TEXT, size INT)
 CREATE_SESSIONS
  	my $create2 = <<"CREATE_PHOTOS";
  	CREATE TABLE photos (name VARCHAR(50) NOT NULL PRIMARY KEY, thumb_name VARCHAR(50) NOT NULL, size INT NOT NULL, upload_time INT NOT NULL, description TEXT)

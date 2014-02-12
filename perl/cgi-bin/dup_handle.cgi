@@ -66,7 +66,7 @@ if ($choice eq "OVERWRITE")
 	$query -> finish;
 	$dbh -> disconnect;
 	
-	update_photo($filename, $result[2], $totalBytes);
+	update_photo($filename, $result[3], $totalBytes);
 }
 
 if ($choice eq "RENAME")
@@ -96,9 +96,9 @@ if ($choice eq "RENAME")
 	$query -> finish;
 	$dbh -> disconnect;
 	
-	check_duplicate($fullname, $result[2], $result[3]);
+	check_duplicate($fullname, $result[3], $result[4]);
 	
-	insert_photo($fullname, $result[2], $result[3]);
+	insert_photo($fullname, $result[3], $result[4]);
 }
 
 if ($choice eq "CANCEL")
