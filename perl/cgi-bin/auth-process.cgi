@@ -84,10 +84,11 @@ sub logout
 	$dbh -> disconnect;
 	
 	my $cookie = $q -> cookie(-name => "SESSID", -value => $sessid, -expires => $time, -path => "/cgi-bin");
-	print $q -> header();
+	
 	print "Content-type: text/html\n";
 	print "Set-Cookie: $cookie";
 	
+	print $q -> header();
 	print <<"HEADER";
 	<html><head><meta http-equiv="refresh" content="0; url=login.cgi?e=2"></head></html>
 HEADER
