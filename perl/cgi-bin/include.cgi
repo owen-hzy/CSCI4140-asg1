@@ -251,7 +251,7 @@ sub check_user_password
 	my $query = $dbh -> prepare("SELECT * FROM users WHERE username = ? AND password = ?");
 	$query -> execute($username, $hashed_password) or die $query -> errstr;
 	
-	if ($query -> row == 0)
+	if ($query -> rows == 0)
 	{
 		$query -> finish;
 		$dbh -> disconnect;
