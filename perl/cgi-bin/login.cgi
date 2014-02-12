@@ -9,6 +9,11 @@ my $e = $q -> url_param("e") || 0;
 do "./include.cgi";
 my $session = session_check();
 
+if ($session == 0)
+{
+	print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/display.cgi");
+	exit;
+}
 print $q -> header();
 print <<"HEADER";
 <!DOCTYPE html>
@@ -19,11 +24,6 @@ print <<"HEADER";
 </head>
 <body>
 HEADER
-
-if ($session == 0)
-{
-	print $q -> h3("Welcome the returned user!");
-}
 
 if ($e == 1)
 {
@@ -61,14 +61,8 @@ print <<"MAIN_BODY";
 <br />
 MAIN_BODY
 
-if ($session == 0)
-{
-	print "<a href='view.cgi'>View Album</a><br />";
-	print "<a href='display.cgi'>Go to Display Panel Directly</a>";
-}else
-{
 	print "<a href='view.cgi'>View Album (read_only)</a>";
-}
+
 
 
 print $q -> end_html;

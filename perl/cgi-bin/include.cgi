@@ -13,8 +13,9 @@ sub session_check
 	my $db_name =       $ENV{'OPENSHIFT_APP_NAME'};
 	
 	my $q = CGI -> new;
+	my $auth = $q -> cookie("auth");
 	my $sessid = $q -> cookie("SESSID");
-	if (!$sessid)
+	if (!$sessid || !$auth)
 	{
 		return 1;
 	}else
@@ -24,8 +25,8 @@ sub session_check
 		my $dbh = DBI -> connect($db_source, $db_username, $db_password) || die $DBI::errstr;
 		###
 		
-		my $query = $dbh -> prepare("SELECT * from sessions WHERE sessid = ?");
-		$query -> execute($sessid) || die $query -> errstr;
+		my $query = $dbh -> prepare("SELECT * from sessions WHERE id = ? AND sessid = ?");
+		$query -> execute($auth, $sessid) || die $query -> errstr;
 		my @data = $query -> fetchrow_array; 
 		
 		if ($query -> rows == 0)
@@ -34,10 +35,10 @@ sub session_check
 			$dbh -> disconnect;
 			
 			return 1;
-		}elsif ($data[1] < `date +%s`)
+		}elsif ($data[2] < `date +%s`)
 		{
-			my $query = $dbh -> prepare("DELETE FROM sessions WHERE sessid = ?");
-			$query -> execute($sessid) || die $query -> errstr;
+			my $query = $dbh -> prepare("UPDATE sessions SET sessid = ?, expire = ?, description = ?, size = ? WHERE id = ?");
+			$query -> execute("NULL", "NULL", "NULL", "NULL", $auth) || die $query -> errstr;
 			
 			$query -> finish;
 			$dbh -> disconnect;
@@ -225,4 +226,40 @@ sub get_data
 	$dbh -> disconnect;
 	
 	return @data;
+}
+
+sub check_user_password
+{
+	# Database Info
+	my $db_host =       $ENV{'OPENSHIFT_MYSQL_DB_HOST'};
+	my $db_username =   $ENV{'OPENSHIFT_MYSQL_DB_USERNAME'};
+	my $db_password =   $ENV{'OPENSHIFT_MYSQL_DB_PASSWORD'};
+	my $db_name =       $ENV{'OPENSHIFT_APP_NAME'};
+	###
+	
+	# Connect the database
+	my $db_source = "DBI:mysql:$db_name;host=$db_host";
+	my $dbh = DBI -> connect($db_source, $db_username, $db_password) || die $DBI::errstr;
+	###
+	
+	my $q = CGI -> new;
+	my $username = $q -> param("username");
+	my $password = $q -> param("password");
+	my $hashed_password = sha256_hex($password);
+	
+	my $query = $dbh -> prepare("SELECT * FROM users WHERE username = ? AND password = ?");
+	$query -> execute($username, $hashed_password) or die $query -> errstr;
+	
+	if ($query -> row == 0)
+	{
+		$query -> finish;
+		$dbh -> disconnect;
+		return 0;
+	}
+	else
+	{
+		$query -> finish;
+		$dbh -> disconnect;
+		return 1;
+	}
 }
