@@ -287,7 +287,7 @@ sub session_regenerate
 	$time += 36000;
 	
 	my $query = $dbh -> prepare("UPDATE sessions SET sessid = ?, expire = ?, description = ?, size = ? WHERE id = ?");
-	$query -> execute("NULL", "NULL", "NULL", "NULL", $auth) || die $query -> errstr;
+	$query -> execute($sessid, $time, "NULL", "NULL", $auth) || die $query -> errstr;
 	
 	my $cookie = $q -> cookie(-name => "SESSID", -value => $sessid, -expires => "+10h", -path => "/cgi-bin", -httponly => 1);
 	
