@@ -3,6 +3,7 @@
 use CGI;
 use DBI;
 use strict;
+use Digest::SHA qw/sha1_hex sha256_hex/;
 
 sub session_check
 {
