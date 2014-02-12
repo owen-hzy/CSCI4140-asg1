@@ -11,7 +11,8 @@ my $session = session_check();
 
 if ($session == 0)
 {
-	print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/display.cgi");
+		
+	print $q -> header(-cookie => session_regenerate(), -refresh => "0; url=http://asg1-wtoughwhard.rhcloud.com/cgi-bin/display.cgi");
 	exit;
 }
 print $q -> header();
