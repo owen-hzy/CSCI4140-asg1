@@ -85,12 +85,12 @@ sub logout
 	
 	my $cookie = $q -> cookie(-name => "SESSID", -value => $sessid, -expires => $time, -path => "/cgi-bin");
 	print $q -> header();
-	print "Content-type: text/html";
+	print "Content-type: text/html\n";
 	print "Set-Cookie: $cookie";
 	
-	#print <<"HEADER";
-	#<html><head><meta http-equiv="refresh" content="0; url=login.cgi?e=2"></head></html>
-#HEADER
+	print <<"HEADER";
+	<html><head><meta http-equiv="refresh" content="0; url=login.cgi?e=2"></head></html>
+HEADER
 	
 	#print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/login.cgi?e=2");
 }
