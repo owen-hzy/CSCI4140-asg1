@@ -85,6 +85,7 @@ sub logout
 	
 	my $cookie = $q -> cookie(-name => "SESSID", -value => $sessid, -expires => $time, -path => "/cgi-bin");
 	print "Set-Cookie: " . "$cookie";
+	print "Content-type: text/html";
 	print <<"HEADER";
 	<html><head><meta http-equiv="refresh" content="0; url=login.cgi?e=2"></head></html>
 HEADER
