@@ -73,7 +73,7 @@ if ($action eq "CHANGE")
 	my $mix = $row . "-" . $column . "-" . $sort . "-" . $order;
 	my $cookien = $q -> cookie(-name => "mix", -value => $mix, -expires => "+1h", -path => "/cgi-bin");
 	
-	print $q -> header(-cookie => $cookien, refresh => "0.1; url=http://asg1-wtoughwhard.rhcloud.com/cgi-bin/view.cgi");
+	print $q -> header(-cookie => $cookien, refresh => "0; url=http://asg1-wtoughwhard.rhcloud.com/cgi-bin/view.cgi");
 }
 
 if ($action eq "GO")

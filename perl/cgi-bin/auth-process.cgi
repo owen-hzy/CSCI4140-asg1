@@ -62,7 +62,7 @@ sub login
 		$dbh -> disconnect;
 		
 		my $cookie = $q -> cookie(-name => "SESSID", -value => $sessid, -expires => "+10h", -path => "/cgi-bin");
-		print $q -> header(-cookie => $cookie, -refresh => "0.1; url=http://asg1-wtoughwhard.rhcloud.com/cgi-bin/display.cgi");
+		print $q -> header(-cookie => $cookie, -refresh => "0; url=http://asg1-wtoughwhard.rhcloud.com/cgi-bin/display.cgi");
 	}
 		
 }
@@ -84,16 +84,7 @@ sub logout
 	$dbh -> disconnect;
 	
 	my $cookie = $q -> cookie(-name => "SESSID", -value => $sessid, -expires => $time, -path => "/cgi-bin");
-	
-	print "Content-type: text/html\n";
-	print "Set-Cookie: $cookie";
-	
-	print $q -> header();
-	print <<"HEADER";
-	<html><head><meta http-equiv="refresh" content="0; url=login.cgi?e=2"></head></html>
-HEADER
-	
-	#print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/cgi-bin/login.cgi?e=2");
+	print $q -> header(-cookie => $cookie, -refresh => "0; url=http://asg1-wtoughwhard.rhcloud.com/cgi-bin/login.cgi?e=2");
 }
 
  
