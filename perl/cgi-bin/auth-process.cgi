@@ -60,7 +60,7 @@ sub login
 			my $time = `date +%s`;
 			$time += 36000;
 			my $username = $q -> param("username");
-			my $auth = sha1_hex($username . "rand()");
+			my $auth = sha1_hex($username . rand());
 		
 			my $query = $dbh -> prepare("INSERT INTO sessions (id, sessid, expire) VALUES (?, ?, ?)");
 			$query -> execute($auth, $sessid, $time) || die $query -> errstr;
