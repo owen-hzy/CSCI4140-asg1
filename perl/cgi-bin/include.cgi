@@ -66,7 +66,7 @@ sub check_name_type
 	my $result = `/usr/bin/identify \"$upload_dir/tmp/$filename\"`;
 	my @type = split(/ /, $result);
 
-	if (($ext eq "JPG" || $ext eq "PNG" || $ext eq "GIF" || $ext eq "JPEG") && ($type[1] eq "JPEG" || $type[1] eq "PNG" || $type[1] eq "GIF"))
+	if ($name && ($type[1] eq "JPEG" || $type[1] eq "PNG" || $type[1] eq "GIF"))
 	{	
 		return 1;
 	}else
