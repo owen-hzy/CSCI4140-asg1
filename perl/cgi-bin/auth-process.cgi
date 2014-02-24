@@ -83,8 +83,8 @@ sub login
 			my $time = `date +%s`;
 			$time += 36000;
 			
-			my $query = $dbh -> prepare("UPDATE sessions SET sessid = ? WHERE id = ?");
-			$query -> execute($sessid, $cookie) || die $query -> errstr;
+			my $query = $dbh -> prepare("DELETE FROM sessions WHERE id = ?");
+			$query -> execute($cookie) || die $query -> errstr;
 			
 			$query -> finish;
 			$dbh -> disconnect;
