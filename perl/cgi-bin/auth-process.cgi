@@ -109,7 +109,7 @@ sub logout
 	
 	my $auth = $q -> cookie("auth");
 	my $sessid = $q -> cookie("SESSID");
-	my $time = gmtime();
+	my $time = `date +%s`;
 	
 	my $query = $dbh -> prepare("UPDATE sessions SET sessid = ?, expire = ?, description = ?, size = ? WHERE id = ?");
 	$query -> execute("NULL", "NULL", "NULL", "NULL", $auth) || die $query -> errstr;
@@ -117,8 +117,9 @@ sub logout
 	$query -> finish;
 	$dbh -> disconnect;
 	
-	my $cookie = $q -> cookie(-name => "SESSID", -value => $sessid, -expires => $time, -path => "/cgi-bin", -httponly => 1);
-	print $q -> header(-cookie => $cookie, -refresh => "0; url=http://asg1-wtoughwhard.rhcloud.com/cgi-bin/login.cgi?e=2");
+	my $cookie1 = $q -> cookie(-name=>"auth", -value => $auth, -expires => "+20d", -path => "/cgi-bin", -httponly => 1);
+	my $cookie2 = $q -> cookie(-name => "SESSID", -value => $sessid, -expires => $time, -path => "/cgi-bin", -httponly => 1);
+	print $q -> header(-cookie => [$cookie1, $cookie2], -refresh => "0; url=http://asg1-wtoughwhard.rhcloud.com/cgi-bin/login.cgi?e=2");
 }
 
  
