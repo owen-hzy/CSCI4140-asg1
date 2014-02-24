@@ -86,6 +86,9 @@ sub login
 			my $query = $dbh -> prepare("DELETE FROM sessions WHERE id = ?");
 			$query -> execute($cookie) || die $query -> errstr;
 			
+			$query = $dbh -> prepare("INSERT INTO sessions (id, sessid, expire) VALUES (?, ?, ?)");
+			$query -> execute($cookie, $sessid, $time) || die $query -> errstr;
+			
 			$query -> finish;
 			$dbh -> disconnect;
 			
