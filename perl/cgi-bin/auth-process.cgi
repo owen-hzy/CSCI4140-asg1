@@ -36,19 +36,16 @@ sub login
 	###
 	my $q = CGI -> new;
 	my $cookie = $q -> cookie("auth");
-	
+	my $rows;
 	if ($cookie)
 	{
 		my $query = $dbh -> prepare("SELECT * FROM sessions WHERE id = ?");
 		$query -> execute($cookie) || die $query -> errstr;
 		
-		if ($query -> rows == 0)
-		{
-			undef $cookie;
-		}
+		$rows = $query -> rows;
 	}
 	
-	if (!$cookie)
+	if (!$cookie || $rows == 0)
 	{
 		if (check_user_password() == 0)
 		{		
@@ -97,7 +94,7 @@ sub login
 			print $q -> header(-cookie => [$cookie1, $cookie2], -refresh => "0; url=http://asg1-wtoughwhard.rhcloud.com/cgi-bin/display.cgi");
 			
 		}
-	}	
+	}
 }
 
 sub logout
