@@ -30,11 +30,11 @@ if(!$filename) {
 ###
 
 # Escape the spacial character
+$description =~ s/&/&amp;/g;
 $description =~ s/</&lt;/g;
 $description =~ s/>/&gt;/g;
 $description =~ s/"/&quot;/g;
 $description =~ s/'/&#39;/g;
-$description =~ s/&/&amp;/g;
 ###
 
 # put the file into teporary folder
