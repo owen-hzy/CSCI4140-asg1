@@ -61,8 +61,9 @@ CREATE_USERS
 	
 	$dbh -> disconnect;
 	
-	`/bin/rm -f \"$upload_dir/.\"`;
-	
+	`/bin/rm -rf \"$upload_dir\"`;
+	`/bin/mkdir \"$upload_dir\"`;
+	`/bin/chmod 750 \"$upload_dir\"`;
 	
 	print $q -> redirect("http://asg1-wtoughwhard.rhcloud.com/done.html");
 }
